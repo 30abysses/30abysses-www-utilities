@@ -11,7 +11,7 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
 {
     public class WwwRoot : OrganizationalContainer, IVisitable
     {
-        public _404WebPage _404WebPage { get; }
+        public _404Template _404WebPage { get; }
         public AssetContainer AssetContainer { get; }
         public IEnumerable<Zone> Zones { get; }
 
