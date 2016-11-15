@@ -4,9 +4,9 @@ using System.IO;
 
 namespace _30abysses.WWW.Utilities.Common.RawContents.Metadata
 {
-    public class IndexTemplate : AbstractMetadata<Container>, IVisitable
+    public class IndexTemplate : AbstractMetadata<OrganizationalContainer>, IVisitable
     {
-        public IndexTemplate(string path, Container container, Container owner) : base(path, container, owner) { }
+        public IndexTemplate(string path, Container container, OrganizationalContainer owner) : base(path, container, owner) { }
 
         public static IndexTemplate Get(OrganizationalContainer owner, IndexTemplate fallback)
         {

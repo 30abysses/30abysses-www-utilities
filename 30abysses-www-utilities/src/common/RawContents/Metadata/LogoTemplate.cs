@@ -1,18 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using _30abysses.WWW.Utilities.Common.RawContents.Abstracts;
+﻿using _30abysses.WWW.Utilities.Common.RawContents.Abstracts;
+using _30abysses.WWW.Utilities.Common.RawContents.Interfaces;
+using System.IO;
 
 namespace _30abysses.WWW.Utilities.Common.RawContents.Metadata
 {
-    public class LogoTemplate
+    public class LogoTemplate : AbstractMetadata<OrganizationalContainer>, IVisitable
     {
-        public OrganizationalContainer Owner { get; internal set; }
+        public LogoTemplate(string path, Container container, OrganizationalContainer owner) : base(path, container, owner) { }
 
-        internal LogoTemplate Get(OrganizationalContainer organizationalContainer, LogoTemplate logoTemplate)
+        public static LogoTemplate Get(OrganizationalContainer owner, LogoTemplate fallback)
         {
-            throw new NotImplementedException();
+            var path = owner.Path + ".logo.svg";
+            return File.Exists(path) ? new LogoTemplate(path, owner.Container, owner) : fallback;
+        }
+
+        void IVisitable.Accept(ContentVisitor visitor)
+        {
+            visitor.Visit(this);
+            visitor.Leave(this);
         }
     }
 }
