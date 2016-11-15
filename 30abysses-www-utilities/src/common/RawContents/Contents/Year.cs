@@ -29,6 +29,8 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
         void IVisitable.Accept(ContentVisitor visitor)
         {
             visitor.Visit(this);
+            Accept(visitor);
+            foreach(var month in Months) { ((IVisitable) month).Accept(visitor); }
             visitor.Leave(this);
         }
 
