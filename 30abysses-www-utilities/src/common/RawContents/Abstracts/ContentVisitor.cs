@@ -20,5 +20,7 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Abstracts
         internal abstract void Leave(Month month);
         internal abstract void Visit(Day day);
         internal abstract void Leave(Day day);
+        internal abstract void Visit(Topic topic);
+        internal abstract void Leave(Topic topic);
     }
 }
