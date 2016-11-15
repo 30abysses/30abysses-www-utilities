@@ -8,14 +8,9 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Abstracts
 {
     public abstract class ContentVisitor
     {
-        internal void Visit(ContentsRoot contentsRoot)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal void Leave(ContentsRoot contentsRoot)
-        {
-            throw new NotImplementedException();
-        }
+        internal abstract void Visit(ContentsRoot contentsRoot);
+        internal abstract void Leave(ContentsRoot contentsRoot);
+        internal abstract void Visit(WwwRoot wwwRoot);
+        internal abstract void Leave(WwwRoot wwwRoot);
     }
 }

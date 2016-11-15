@@ -1,15 +1,36 @@
-﻿using System;
+﻿using _30abysses.WWW.Utilities.Common.RawContents.Abstracts;
+using _30abysses.WWW.Utilities.Common.RawContents.Interfaces;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
 {
-    public class WwwRoot
+    public class WwwRoot : Container, IVisitable
     {
-        internal WwwRoot Get(ContentsRoot contentsRoot)
+        public _404WebPage _404WebPage { get; }
+        public AssetContainer AssetContainer { get; }
+        public IEnumerable<Zone> Zones { get; }
+
+        public WwwRoot(string path, ContentsRoot container) : base(path, container)
         {
-            throw new NotImplementedException();
+            AssetContainer = AssetContainer.Get(this);
+            _404WebPage = _404WebPage.Get(this);
+            Zones = Zone.Get(this);
+        }
+
+        internal WwwRoot Get(ContentsRoot container)
+        {
+            var path = System.IO.Path.Combine(container.Path, "WwwRoot");
+            return Directory.Exists(path) ? new WwwRoot(path, container) : null;
+        }
+
+        void IVisitable.Accept(ContentVisitor visitor)
+        {
+            visitor.Visit(this);
+            visitor.Leave(this);
         }
     }
 }
