@@ -9,9 +9,6 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Abstracts
 
         public AbstractTopic(string path, Container container) : base(path, container) { AssetContainer = AssetContainer.Get(this); }
 
-        protected void Accept(ContentVisitor visitor)
-        {
-            if (AssetContainer?.Owner == this) { ((IVisitable) AssetContainer).Accept(visitor); }
-        }
+        protected void Accept(ContentVisitor visitor) { if (AssetContainer?.Owner == this) { ((IVisitable) AssetContainer).Accept(visitor); } }
     }
 }
