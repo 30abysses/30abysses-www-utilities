@@ -1,28 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using _30abysses.WWW.Utilities.Common.RawContents.Contents;
+﻿using _30abysses.WWW.Utilities.Common.RawContents.Contents;
 
 namespace _30abysses.WWW.Utilities.Common.RawContents.Abstracts
 {
     public abstract class ContentVisitor
     {
-        internal abstract void Visit(ContentsRoot contentsRoot);
-        internal abstract void Leave(ContentsRoot contentsRoot);
-        internal abstract void Visit(WwwRoot wwwRoot);
-        internal abstract void Leave(WwwRoot wwwRoot);
-        internal abstract void Visit(Zone zone);
-        internal abstract void Leave(Zone zone);
-        internal abstract void Visit(Year year);
-        internal abstract void Leave(Year year);
-        internal abstract void Visit(Month month);
-        internal abstract void Visit(_404Template _404Template);
-        internal abstract void Leave(_404Template _404Template);
-        internal abstract void Leave(Month month);
-        internal abstract void Visit(Day day);
-        internal abstract void Leave(Day day);
-        internal abstract void Visit(Topic topic);
-        internal abstract void Leave(Topic topic);
+        public virtual void Leave(_404Template _404Template) { }
+        public virtual void Leave(ContentsRoot contentsRoot) { }
+        public virtual void Leave(Day day) { }
+        public virtual void Leave(Month month) { }
+        public virtual void Leave(Topic topic) { }
+        public virtual void Leave(WwwRoot wwwRoot) { }
+        public virtual void Leave(Year year) { }
+        public virtual void Leave(Zone zone) { }
+        public virtual void Visit(_404Template _404Template) { }
+        public virtual void Visit(ContentsRoot contentsRoot) { }
+        public virtual void Visit(Day day) { }
+        public virtual void Visit(Month month) { }
+        public virtual void Visit(Topic topic) { }
+        public virtual void Visit(WwwRoot wwwRoot) { }
+        public virtual void Visit(Year year) { }
+        public virtual void Visit(Zone zone) { }
     }
 }

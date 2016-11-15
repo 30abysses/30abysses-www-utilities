@@ -1,10 +1,6 @@
 ﻿using _30abysses.WWW.Utilities.Common.RawContents.Contents;
 using _30abysses.WWW.Utilities.Common.RawContents.Interfaces;
 using _30abysses.WWW.Utilities.Common.RawContents.Metadata;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace _30abysses.WWW.Utilities.Common.RawContents.Abstracts
 {
@@ -15,15 +11,9 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Abstracts
         public LogoTemplate LogoTemplate { get; private set; }
         public TopicTemplate TopicTemplate { get; private set; }
 
-        public OrganizationalContainer(string path, ContentsRoot container) : base(path, container)
-        {
-            Initialize(null);
-        }
+        public OrganizationalContainer(string path, ContentsRoot container) : base(path, container) { Initialize(null); }
 
-        public OrganizationalContainer(string path, OrganizationalContainer container) : base(path, container)
-        {
-            Initialize(container);
-        }
+        public OrganizationalContainer(string path, OrganizationalContainer container) : base(path, container) { Initialize(container); }
 
         private void Initialize(OrganizationalContainer fallbackContainer)
         {
