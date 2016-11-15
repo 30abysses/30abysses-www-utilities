@@ -12,7 +12,7 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
 
         public Zone(string path, WwwRoot container) : base(path, container) { Years = Year.Get(this); }
 
-        internal static IEnumerable<Zone> Get(WwwRoot container) =>
+        public static IEnumerable<Zone> Get(WwwRoot container) =>
             Directory.GetDirectories(container.Path)
             .Where(path => !System.IO.Path.GetFileName(path).StartsWith("."))
             .Select(path => new Zone(path, container))

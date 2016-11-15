@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace update_metacontents
+namespace _30abysses.WWW.Utilities.UpdateMetaContents
 {
-    public class Program
+    public static class Program
     {
-        public static void Main(string[] args)
+        public static int Main(string[] commandLineArguments)
         {
+            return 1;
         }
     }
 }

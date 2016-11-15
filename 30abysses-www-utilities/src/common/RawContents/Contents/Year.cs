@@ -13,7 +13,7 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
 
         public Year(string path, Zone container) : base(path, container) { Months = Month.Get(this); }
 
-        internal static IEnumerable<Year> Get(Zone container) =>
+        public static IEnumerable<Year> Get(Zone container) =>
             Directory.GetDirectories(container.Path, "????")
             .Where(path => YYYY.IsMatch(System.IO.Path.GetFileName(path)))
             .Select(path => new Year(path, container))
