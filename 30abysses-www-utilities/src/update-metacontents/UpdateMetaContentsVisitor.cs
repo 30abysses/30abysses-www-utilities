@@ -9,10 +9,7 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
     {
         public ContentIO ContentIO { get; }
 
-        public UpdateMetaContentsVisitor(string rootInputDirectoryPath, string rootOutputDirectoryPath)
-        {
-            ContentIO = new ContentIO(rootInputDirectoryPath, rootOutputDirectoryPath);
-        }
+        public UpdateMetaContentsVisitor(string rootInputDirectoryPath, string rootOutputDirectoryPath) { ContentIO = new ContentIO(rootInputDirectoryPath, rootOutputDirectoryPath); }
 
         public override void Visit(ContentsRoot contentsRoot) => ContentIO.CreateOutputDirectory(contentsRoot.Path);
 
