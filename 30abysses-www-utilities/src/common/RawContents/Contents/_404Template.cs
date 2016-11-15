@@ -6,9 +6,7 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
 {
     public class _404Template : Item, IVisitable
     {
-        public new WwwRoot Container { get; }
-
-        public _404Template(string path, WwwRoot container) : base(path, container) { Container = container; }
+        public _404Template(string path, WwwRoot container) : base(path, container) { }
 
         public static _404Template Get(WwwRoot container)
         {

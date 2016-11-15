@@ -6,7 +6,7 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
 {
     public class MetaTopic : AbstractTopic, IVisitable
     {
-        public MetaTopic(string path, Day container) : base(path, container) { }
+        public MetaTopic(string path, Container container) : base(path, container) { }
 
         public static MetaTopic Get(Topic owner)
         {
