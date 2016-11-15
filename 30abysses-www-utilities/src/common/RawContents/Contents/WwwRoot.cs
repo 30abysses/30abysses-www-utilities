@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
 {
-    public class WwwRoot : Container, IVisitable
+    public class WwwRoot : OrganizationalContainer, IVisitable
     {
         public _404WebPage _404WebPage { get; }
         public AssetContainer AssetContainer { get; }
@@ -30,6 +30,10 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
         void IVisitable.Accept(ContentVisitor visitor)
         {
             visitor.Visit(this);
+            Accept(visitor);
+            ((IVisitable) _404WebPage).Accept(visitor);
+            ((IVisitable) AssetContainer).Accept(visitor);
+            foreach (var zone in Zones) { ((IVisitable) zone).Accept(visitor); }
             visitor.Leave(this);
         }
     }
