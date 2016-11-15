@@ -22,6 +22,7 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
         void IVisitable.Accept(ContentVisitor visitor)
         {
             visitor.Visit(this);
+            Accept(visitor);
             foreach (var day in Days) { ((IVisitable) day).Accept(visitor); }
             visitor.Leave(this);
         }

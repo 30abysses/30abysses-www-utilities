@@ -1,11 +1,8 @@
 ﻿using _30abysses.WWW.Utilities.Common.RawContents.Abstracts;
 using _30abysses.WWW.Utilities.Common.RawContents.Interfaces;
 using _30abysses.WWW.Utilities.Common.RawContents.Metadata;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
 {
@@ -22,7 +19,7 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
             Zones = Zone.Get(this);
         }
 
-        internal WwwRoot Get(ContentsRoot container)
+        public static WwwRoot Get(ContentsRoot container)
         {
             var path = System.IO.Path.Combine(container.Path, "WwwRoot");
             return Directory.Exists(path) ? new WwwRoot(path, container) : null;

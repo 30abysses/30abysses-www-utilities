@@ -1,11 +1,9 @@
-﻿using _30abysses.WWW.Utilities.Common.RawContents.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using _30abysses.WWW.Utilities.Common.RawContents.Abstracts;
+﻿using _30abysses.WWW.Utilities.Common.RawContents.Abstracts;
+using _30abysses.WWW.Utilities.Common.RawContents.Interfaces;
 using _30abysses.WWW.Utilities.Common.RawContents.Metadata;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
 {
@@ -13,18 +11,13 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
     {
         public MetaTopic MetaTopic { get; }
 
-        public Topic(string path, Day container) : base(path, container)
-        {
-            MetaTopic = MetaTopic.Get(this);
-        }
+        public Topic(string path, Day container) : base(path, container) { MetaTopic = MetaTopic.Get(this); }
 
-        internal static IEnumerable<Topic> Get(Day container)
-        {
-            return Directory.GetFiles(container.Path, "*.md")
-                .Where(path => !string.IsNullOrWhiteSpace(System.IO.Path.GetFileNameWithoutExtension(path)))
-                .Select(path => new Topic(path, container))
-                .ToArray();
-        }
+        public static IEnumerable<Topic> Get(Day container) =>
+            Directory.GetFiles(container.Path, "*.md")
+            .Where(path => !string.IsNullOrWhiteSpace(System.IO.Path.GetFileNameWithoutExtension(path)))
+            .Select(path => new Topic(path, container))
+            .ToArray();
 
         void IVisitable.Accept(ContentVisitor visitor)
         {
