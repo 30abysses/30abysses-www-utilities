@@ -1,15 +1,36 @@
-﻿using System;
+﻿using _30abysses.WWW.Utilities.Common.RawContents.Abstracts;
+using _30abysses.WWW.Utilities.Common.RawContents.Interfaces;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
 {
-    public class Zone
+    public class Zone : OrganizationalContainer, IVisitable
     {
-        internal static IEnumerable<Zone> Get(WwwRoot wwwRoot)
+        public IEnumerable<Year> Years { get; }
+
+        public Zone(string path, WwwRoot container) : base(path, container)
         {
-            throw new NotImplementedException();
+            Years = Year.Get(this);
+        }
+
+        internal static IEnumerable<Zone> Get(WwwRoot container)
+        {
+            return Directory.GetDirectories(container.Path)
+                .Where(path => !System.IO.Path.GetFileName(path).StartsWith("."))
+                .Select(path => new Zone(path, container))
+                .ToArray();
+        }
+
+        void IVisitable.Accept(ContentVisitor visitor)
+        {
+            visitor.Visit(this);
+            Accept(visitor);
+            foreach (var year in Years) { ((IVisitable) year).Accept(visitor); }
+            visitor.Leave(this);
         }
     }
 }

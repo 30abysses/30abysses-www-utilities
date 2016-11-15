@@ -12,5 +12,7 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Abstracts
         internal abstract void Leave(ContentsRoot contentsRoot);
         internal abstract void Visit(WwwRoot wwwRoot);
         internal abstract void Leave(WwwRoot wwwRoot);
+        internal abstract void Visit(Zone zone);
+        internal abstract void Leave(Zone zone);
     }
 }
