@@ -1,18 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using _30abysses.WWW.Utilities.Common.RawContents.Abstracts;
+﻿using _30abysses.WWW.Utilities.Common.RawContents.Abstracts;
+using _30abysses.WWW.Utilities.Common.RawContents.Interfaces;
+using System.IO;
 
 namespace _30abysses.WWW.Utilities.Common.RawContents.Metadata
 {
-    public class IndexTemplate
+    public class IndexTemplate : AbstractMetadata<Container>, IVisitable
     {
-        public OrganizationalContainer Owner { get; internal set; }
+        public IndexTemplate(string path, Container container, Container owner) : base(path, container, owner) { }
 
-        internal IndexTemplate Get(OrganizationalContainer organizationalContainer, IndexTemplate indexTemplate)
+        public static IndexTemplate Get(OrganizationalContainer owner, IndexTemplate fallback)
         {
-            throw new NotImplementedException();
+            var path = owner.Path + ".index.html";
+            return File.Exists(path) ? new IndexTemplate(path, owner.Container, owner) : fallback;
+        }
+
+        void IVisitable.Accept(ContentVisitor visitor)
+        {
+            visitor.Visit(this);
+            visitor.Leave(this);
         }
     }
 }
