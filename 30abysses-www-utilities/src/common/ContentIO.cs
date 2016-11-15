@@ -1,4 +1,6 @@
-﻿namespace _30abysses.WWW.Utilities.Common
+﻿using System.IO;
+
+namespace _30abysses.WWW.Utilities.Common
 {
     public class ContentIO
     {
@@ -10,5 +12,9 @@
             RootInputDirectoryPath = rootInputDirectoryPath;
             RootOutputDirectoryPath = rootOutputDirectoryPath;
         }
+
+        public void CreateOutputDirectory(string inputDirectoryPath) => Directory.CreateDirectory(GetOutputPath(inputDirectoryPath));
+
+        public string GetOutputPath(string inputPath) => Path.Combine(RootOutputDirectoryPath, inputPath.Substring(RootInputDirectoryPath.Length).TrimStart(Path.DirectorySeparatorChar));
     }
 }
