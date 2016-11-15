@@ -1,19 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using _30abysses.WWW.Utilities.Common.RawContents.Abstracts;
+﻿using _30abysses.WWW.Utilities.Common.RawContents.Abstracts;
 using _30abysses.WWW.Utilities.Common.RawContents.Contents;
+using _30abysses.WWW.Utilities.Common.RawContents.Interfaces;
+using System.IO;
 
 namespace _30abysses.WWW.Utilities.Common.RawContents.Metadata
 {
-    public class AssetContainer
+    public class AssetContainer : AbstractMetadata<Item>, IVisitable
     {
-        public AbstractTopic Owner { get; internal set; }
+        public AssetContainer(string path, Container container, Item owner) : base(path, container, owner) { }
 
-        internal AssetContainer Get(WwwRoot wwwRoot)
+        public static AssetContainer Get(WwwRoot owner)
         {
-            throw new NotImplementedException();
+            var path = System.IO.Path.Combine(owner.Path, ".assets");
+            return Directory.Exists(path) ? new AssetContainer(path, owner, owner) : null;
+        }
+
+        public static AssetContainer Get(AbstractTopic owner)
+        {
+            var path = System.IO.Path.Combine(owner.Container.Path, System.IO.Path.GetFileNameWithoutExtension(owner.Path));
+            return Directory.Exists(path) ? new AssetContainer(path, owner.Container, owner) : null;
+        }
+
+        void IVisitable.Accept(ContentVisitor visitor)
+        {
+            visitor.Visit(this);
+            visitor.Leave(this);
         }
     }
 }

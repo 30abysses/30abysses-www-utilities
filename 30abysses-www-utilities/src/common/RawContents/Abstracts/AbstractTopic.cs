@@ -12,6 +12,7 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Abstracts
         public AbstractTopic(string path, Day container) : base(path, container)
         {
             Container = container;
+            AssetContainer = AssetContainer.Get(this);
         }
 
         protected void Accept(ContentVisitor visitor)
