@@ -1,23 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using _30abysses.WWW.Utilities.Common.RawContents.Abstracts;
+﻿using _30abysses.WWW.Utilities.Common.RawContents.Abstracts;
+using _30abysses.WWW.Utilities.Common.RawContents.Interfaces;
+using System.IO;
 
 namespace _30abysses.WWW.Utilities.Common.RawContents.Metadata
 {
-    public class ContentMetadata
+    public class ContentMetadata : AbstractMetadata<Item>, IVisitable
     {
-        public Item Owner { get; internal set; }
+        public ContentMetadata(string path, Container container, Item owner) : base(path, container, owner) { }
 
-        internal static ContentMetadata Get(OrganizationalContainer organizationalContainer, ContentMetadata contentMetadata)
+        public static ContentMetadata Get(OrganizationalContainer owner, ContentMetadata fallback)
         {
-            throw new NotImplementedException();
+            var path = owner.Path + ".metadata.json";
+            return File.Exists(path) ? new ContentMetadata(path, owner.Container, owner) : fallback;
         }
 
-        internal static ContentMetadata Get(AbstractTopic abstractTopic, ContentMetadata metadata)
+        void IVisitable.Accept(ContentVisitor visitor)
         {
-            throw new NotImplementedException();
+            visitor.Visit(this);
+            visitor.Leave(this);
         }
     }
 }

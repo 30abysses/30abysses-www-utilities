@@ -7,6 +7,7 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Abstracts
     {
         public virtual void Leave(_404Template _404Template) { }
         public virtual void Leave(AssetContainer assetContainer) { }
+        public virtual void Leave(ContentMetadata contentMetadata) { }
         public virtual void Leave(ContentsRoot contentsRoot) { }
         public virtual void Leave(Day day) { }
         public virtual void Leave(Month month) { }
@@ -16,6 +17,7 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Abstracts
         public virtual void Leave(Zone zone) { }
         public virtual void Visit(_404Template _404Template) { }
         public virtual void Visit(AssetContainer assetContainer) { }
+        public virtual void Visit(ContentMetadata contentMetadata) { }
         public virtual void Visit(ContentsRoot contentsRoot) { }
         public virtual void Visit(Day day) { }
         public virtual void Visit(Month month) { }
