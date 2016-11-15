@@ -1,15 +1,37 @@
-﻿using System;
+﻿using _30abysses.WWW.Utilities.Common.RawContents.Abstracts;
+using _30abysses.WWW.Utilities.Common.RawContents.Interfaces;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
 {
-    public class Year
+    public class Year : OrganizationalContainer, IVisitable
     {
-        internal static IEnumerable<Year> Get(Zone zone)
+        public IEnumerable<Month> Months { get; }
+
+        public Year(string path, Zone container):base(path, container)
         {
-            throw new NotImplementedException();
+            Months = Month.Get(this);
         }
+
+        internal static IEnumerable<Year> Get(Zone container)
+        {
+            return Directory.GetDirectories(container.Path, "????")
+                .Where(path => YYYY.IsMatch(System.IO.Path.GetFileName(path)))
+                .Select(path => new Year(path, container))
+                .ToArray();
+        }
+
+        void IVisitable.Accept(ContentVisitor visitor)
+        {
+            visitor.Visit(this);
+            visitor.Leave(this);
+        }
+
+        public static Regex YYYY { get; } = new Regex(@"\d{4}");
     }
 }

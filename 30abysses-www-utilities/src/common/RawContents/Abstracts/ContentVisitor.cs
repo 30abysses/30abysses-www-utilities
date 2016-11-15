@@ -14,5 +14,7 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Abstracts
         internal abstract void Leave(WwwRoot wwwRoot);
         internal abstract void Visit(Zone zone);
         internal abstract void Leave(Zone zone);
+        internal abstract void Visit(Year year);
+        internal abstract void Leave(Year year);
     }
 }
