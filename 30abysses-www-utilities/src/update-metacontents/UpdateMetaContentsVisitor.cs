@@ -31,5 +31,11 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
         public override void Visit(AssetContainer assetContainer) => ContentIO.CopyDirectoryToOutputDirectory(assetContainer.Path);
 
         public override void Visit(Zone zone) => ContentIO.CreateOutputDirectory(zone.Path);
+
+        public override void Visit(Year year) => ContentIO.CreateOutputDirectory(year.Path);
+
+        public override void Visit(Month month) => ContentIO.CreateOutputDirectory(month.Path);
+
+        public override void Visit(Day day) => ContentIO.CreateOutputDirectory(day.Path);
     }
 }
