@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace common
+namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
 {
-    public class Class1
+    public class ContentsRoot
     {
-        public Class1()
-        {
-        }
     }
 }
