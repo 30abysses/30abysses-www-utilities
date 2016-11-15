@@ -1,15 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using _30abysses.WWW.Utilities.Common.RawContents.Abstracts;
+using _30abysses.WWW.Utilities.Common.RawContents.Interfaces;
+using System.IO;
 
 namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
 {
-    public class _404Template
+    public class _404Template : Item, IVisitable
     {
-        internal _404Template Get(WwwRoot wwwRoot)
+        public new WwwRoot Container { get; }
+
+        public _404Template(string path, WwwRoot container) : base(path, container) { Container = container; }
+
+        public static _404Template Get(WwwRoot container)
         {
-            throw new NotImplementedException();
+            var path = System.IO.Path.Combine(container.Path, "404.html");
+            return File.Exists(path) ? new _404Template(path, container) : null;
+        }
+
+        void IVisitable.Accept(ContentVisitor visitor)
+        {
+            visitor.Visit(this);
+            visitor.Leave(this);
         }
     }
 }

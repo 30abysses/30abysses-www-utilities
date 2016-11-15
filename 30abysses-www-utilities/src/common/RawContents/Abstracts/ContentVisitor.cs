@@ -17,6 +17,8 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Abstracts
         internal abstract void Visit(Year year);
         internal abstract void Leave(Year year);
         internal abstract void Visit(Month month);
+        internal abstract void Visit(_404Template _404Template);
+        internal abstract void Leave(_404Template _404Template);
         internal abstract void Leave(Month month);
         internal abstract void Visit(Day day);
         internal abstract void Leave(Day day);

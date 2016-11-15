@@ -11,14 +11,14 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
 {
     public class WwwRoot : OrganizationalContainer, IVisitable
     {
-        public _404Template _404WebPage { get; }
+        public _404Template _404Template { get; }
         public AssetContainer AssetContainer { get; }
         public IEnumerable<Zone> Zones { get; }
 
         public WwwRoot(string path, ContentsRoot container) : base(path, container)
         {
             AssetContainer = AssetContainer.Get(this);
-            _404WebPage = _404WebPage.Get(this);
+            _404Template = _404Template.Get(this);
             Zones = Zone.Get(this);
         }
 
@@ -32,7 +32,7 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
         {
             visitor.Visit(this);
             Accept(visitor);
-            ((IVisitable) _404WebPage).Accept(visitor);
+            ((IVisitable) _404Template).Accept(visitor);
             ((IVisitable) AssetContainer).Accept(visitor);
             foreach (var zone in Zones) { ((IVisitable) zone).Accept(visitor); }
             visitor.Leave(this);
