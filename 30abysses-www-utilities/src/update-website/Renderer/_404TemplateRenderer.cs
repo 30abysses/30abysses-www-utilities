@@ -6,13 +6,18 @@ using _30abysses.WWW.Utilities.Common.RawContents.Contents;
 
 namespace _30abysses.WWW.Utilities.UpdateWebsite.Renderer
 {
-    public class _404TemplateRenderer : AbstractRenderer
+    public class _404TemplateRenderer : AbstractRenderer<_404Template>
     {
-        private _404Template _404Template;
+        public _404TemplateRenderer(_404Template input) : base(input) { }
 
-        public _404TemplateRenderer(_404Template _404Template)
+        public override string GetHtmlContents()
         {
-            this._404Template = _404Template;
+            throw new NotImplementedException();
+        }
+
+        public override string GetHtmlTitle()
+        {
+            throw new NotImplementedException();
         }
 
         public override string GetOutputFileContents()

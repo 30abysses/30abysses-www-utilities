@@ -6,13 +6,18 @@ using _30abysses.WWW.Utilities.Common.RawContents.Contents;
 
 namespace _30abysses.WWW.Utilities.UpdateWebsite.Renderer
 {
-    public class ZoneRenderer : AbstractRenderer
+    public class ZoneRenderer : AbstractRenderer<Zone>
     {
-        private Zone zone;
+        public ZoneRenderer(Zone input) : base(input) { }
 
-        public ZoneRenderer(Zone zone)
+        public override string GetHtmlContents()
         {
-            this.zone = zone;
+            throw new NotImplementedException();
+        }
+
+        public override string GetHtmlTitle()
+        {
+            throw new NotImplementedException();
         }
 
         public override string GetOutputFileContents()

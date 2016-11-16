@@ -6,13 +6,18 @@ using _30abysses.WWW.Utilities.Common.RawContents.Contents;
 
 namespace _30abysses.WWW.Utilities.UpdateWebsite.Renderer
 {
-    public class YearRenderer : AbstractRenderer
+    public class YearRenderer : AbstractRenderer<Year>
     {
-        private Year year;
+        public YearRenderer(Year input) : base(input) { }
 
-        public YearRenderer(Year year)
+        public override string GetHtmlContents()
         {
-            this.year = year;
+            throw new NotImplementedException();
+        }
+
+        public override string GetHtmlTitle()
+        {
+            throw new NotImplementedException();
         }
 
         public override string GetOutputFileContents()

@@ -6,13 +6,18 @@ using _30abysses.WWW.Utilities.Common.RawContents.Contents;
 
 namespace _30abysses.WWW.Utilities.UpdateWebsite.Renderer
 {
-    public class TopicRenderer : AbstractRenderer
+    public class TopicRenderer : AbstractRenderer<Topic>
     {
-        private Topic topic;
+        public TopicRenderer(Topic input) : base(input) { }
 
-        public TopicRenderer(Topic topic)
+        public override string GetHtmlContents()
         {
-            this.topic = topic;
+            throw new NotImplementedException();
+        }
+
+        public override string GetHtmlTitle()
+        {
+            throw new NotImplementedException();
         }
 
         public override string GetOutputFileContents()

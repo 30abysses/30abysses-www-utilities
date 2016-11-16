@@ -6,13 +6,18 @@ using _30abysses.WWW.Utilities.Common.RawContents.Contents;
 
 namespace _30abysses.WWW.Utilities.UpdateWebsite.Renderer
 {
-    public class MetaTopicRenderer : AbstractRenderer
+    public class MetaTopicRenderer : AbstractRenderer<MetaTopic>
     {
-        private MetaTopic metaTopic;
+        public MetaTopicRenderer(MetaTopic input) : base(input) { }
 
-        public MetaTopicRenderer(MetaTopic metaTopic)
+        public override string GetHtmlContents()
         {
-            this.metaTopic = metaTopic;
+            throw new NotImplementedException();
+        }
+
+        public override string GetHtmlTitle()
+        {
+            throw new NotImplementedException();
         }
 
         public override string GetOutputFileContents()

@@ -6,13 +6,18 @@ using _30abysses.WWW.Utilities.Common.RawContents.Contents;
 
 namespace _30abysses.WWW.Utilities.UpdateWebsite.Renderer
 {
-    public class DayRenderer : AbstractRenderer
+    public class DayRenderer : AbstractRenderer<Day>
     {
-        private Day day;
+        public DayRenderer(Day input) : base(input) { }
 
-        public DayRenderer(Day day)
+        public override string GetHtmlContents()
         {
-            this.day = day;
+            throw new NotImplementedException();
+        }
+
+        public override string GetHtmlTitle()
+        {
+            throw new NotImplementedException();
         }
 
         public override string GetOutputFileContents()

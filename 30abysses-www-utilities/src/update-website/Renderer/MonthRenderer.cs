@@ -6,13 +6,18 @@ using _30abysses.WWW.Utilities.Common.RawContents.Contents;
 
 namespace _30abysses.WWW.Utilities.UpdateWebsite.Renderer
 {
-    public class MonthRenderer : AbstractRenderer
+    public class MonthRenderer : AbstractRenderer<Month>
     {
-        private Month month;
+        public MonthRenderer(Month input) : base(input) { }
 
-        public MonthRenderer(Month month)
+        public override string GetHtmlContents()
         {
-            this.month = month;
+            throw new NotImplementedException();
+        }
+
+        public override string GetHtmlTitle()
+        {
+            throw new NotImplementedException();
         }
 
         public override string GetOutputFileContents()

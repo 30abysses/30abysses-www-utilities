@@ -6,14 +6,16 @@ using _30abysses.WWW.Utilities.Common.RawContents.Contents;
 
 namespace _30abysses.WWW.Utilities.UpdateWebsite.Renderer
 {
-    public class WwwRootRenderer : AbstractRenderer
+    public class WwwRootRenderer : AbstractRenderer<WwwRoot>
     {
-        private WwwRoot wwwRoot;
+        public WwwRootRenderer(WwwRoot input) : base(input) { }
 
-        public WwwRootRenderer(WwwRoot wwwRoot)
+        public override string GetHtmlContents()
         {
-            this.wwwRoot = wwwRoot;
+            throw new NotImplementedException();
         }
+
+        public override string GetHtmlTitle() => "30abysses (卅淵)";
 
         public override string GetOutputFileContents()
         {
