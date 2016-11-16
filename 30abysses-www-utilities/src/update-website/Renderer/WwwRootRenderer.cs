@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using _30abysses.WWW.Utilities.Common.RawContents.Contents;
+using System.IO;
 
 namespace _30abysses.WWW.Utilities.UpdateWebsite.Renderer
 {
@@ -27,9 +28,6 @@ namespace _30abysses.WWW.Utilities.UpdateWebsite.Renderer
             throw new NotImplementedException();
         }
 
-        public override string GetPseudoInputFilePath()
-        {
-            throw new NotImplementedException();
-        }
+        public override string GetPseudoInputFilePath() => Path.Combine(Input.Path, IndexHtmlFilename);
     }
 }

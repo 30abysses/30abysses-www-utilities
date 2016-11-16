@@ -2,7 +2,9 @@
 {
     public abstract class AbstractRenderer<T>
     {
-        public string HtmlTitleSuffix { get; } = " @ 30abysses (卅淵)";
+        public static string HtmlTitleSuffix { get; } = " @ 30abysses (卅淵)";
+        public static string IndexHtmlFilename { get; } = "index.html";
+        public static string HtmlExtensionFilename { get; } = ".html";
         public T Input { get; }
 
         public AbstractRenderer(T input) { Input = input; }

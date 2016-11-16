@@ -30,9 +30,6 @@ namespace _30abysses.WWW.Utilities.UpdateWebsite.Renderer
             throw new NotImplementedException();
         }
 
-        public override string GetPseudoInputFilePath()
-        {
-            throw new NotImplementedException();
-        }
+        public override string GetPseudoInputFilePath() => Input.Path;
     }
 }
