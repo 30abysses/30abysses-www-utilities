@@ -27,6 +27,6 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
             visitor.Leave(this);
         }
 
-        public static Regex MM { get; } = new Regex(@"\d{2}");
+        public static readonly Regex MM = new Regex(@"\d{2}");
     }
 }

@@ -1,6 +1,5 @@
 ﻿using _30abysses.WWW.Utilities.Common.RawContents.Abstracts;
 using _30abysses.WWW.Utilities.Common.RawContents.Interfaces;
-using _30abysses.WWW.Utilities.Common.RawContents.Metadata;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

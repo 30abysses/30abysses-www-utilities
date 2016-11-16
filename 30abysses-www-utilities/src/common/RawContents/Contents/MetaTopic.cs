@@ -19,6 +19,7 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
         void IVisitable.Accept(ContentVisitor visitor)
         {
             visitor.Visit(this);
+            Accept(visitor);
             visitor.Leave(this);
         }
     }
