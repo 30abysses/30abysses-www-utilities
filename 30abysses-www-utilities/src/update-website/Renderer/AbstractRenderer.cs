@@ -11,5 +11,6 @@
         public abstract string GetOutputFileContents();
         public abstract string GetHtmlTitle();
         public abstract string GetHtmlContents();
+        public abstract string GetHtmlNavigation();
     }
 }

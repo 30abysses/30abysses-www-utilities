@@ -15,6 +15,11 @@ namespace _30abysses.WWW.Utilities.UpdateWebsite.Renderer
             throw new NotImplementedException();
         }
 
+        public override string GetHtmlNavigation()
+        {
+            throw new NotImplementedException();
+        }
+
         public override string GetHtmlTitle()
         {
             throw new NotImplementedException();
