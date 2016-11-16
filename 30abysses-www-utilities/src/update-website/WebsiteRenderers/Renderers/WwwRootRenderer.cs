@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using _30abysses.WWW.Utilities.Common.RawContents.Contents;
+﻿using _30abysses.WWW.Utilities.Common.RawContents.Contents;
+using _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Abstracts;
+using System;
 using System.IO;
 
-namespace _30abysses.WWW.Utilities.UpdateWebsite.Renderer
+namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Renderers
 {
-    public class DayRenderer : AbstractRenderer<Day>
+    public class WwwRootRenderer : AbstractRenderer<WwwRoot>
     {
-        public DayRenderer(Day input) : base(input) { }
+        public WwwRootRenderer(WwwRoot input) : base(input) { }
 
         public override string GetHtmlContents()
         {
@@ -21,10 +19,7 @@ namespace _30abysses.WWW.Utilities.UpdateWebsite.Renderer
             throw new NotImplementedException();
         }
 
-        public override string GetHtmlTitle()
-        {
-            throw new NotImplementedException();
-        }
+        public override string GetHtmlTitle() => "30abysses (卅淵)";
 
         public override string GetOutputFileContents()
         {

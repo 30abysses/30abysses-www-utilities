@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using _30abysses.WWW.Utilities.Common.RawContents.Contents;
+﻿using _30abysses.WWW.Utilities.Common.RawContents.Contents;
+using _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Abstracts;
+using System;
 using System.IO;
 
-namespace _30abysses.WWW.Utilities.UpdateWebsite.Renderer
+namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Renderers
 {
-    public class MonthRenderer : AbstractRenderer<Month>
+    public class ZoneRenderer : AbstractRenderer<Zone>
     {
-        public MonthRenderer(Month input) : base(input) { }
+        public ZoneRenderer(Zone input) : base(input) { }
 
         public override string GetHtmlContents()
         {

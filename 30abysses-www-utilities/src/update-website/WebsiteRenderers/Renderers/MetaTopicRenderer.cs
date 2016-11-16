@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using _30abysses.WWW.Utilities.Common.RawContents.Contents;
+﻿using _30abysses.WWW.Utilities.Common.RawContents.Contents;
+using _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Abstracts;
+using System;
 using System.IO;
 
-namespace _30abysses.WWW.Utilities.UpdateWebsite.Renderer
+namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Renderers
 {
-    public class TopicRenderer : AbstractRenderer<Topic>
+    public class MetaTopicRenderer : AbstractRenderer<MetaTopic>
     {
-        public TopicRenderer(Topic input) : base(input) { }
+        public MetaTopicRenderer(MetaTopic input) : base(input) { }
 
         public override string GetHtmlContents()
         {

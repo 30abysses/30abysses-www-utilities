@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using _30abysses.WWW.Utilities.Common.RawContents.Contents;
-using System.IO;
+﻿using _30abysses.WWW.Utilities.Common.RawContents.Contents;
+using _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Abstracts;
+using System;
 
-namespace _30abysses.WWW.Utilities.UpdateWebsite.Renderer
+namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Renderers
 {
-    public class ZoneRenderer : AbstractRenderer<Zone>
+    public class _404TemplateRenderer : AbstractRenderer<_404Template>
     {
-        public ZoneRenderer(Zone input) : base(input) { }
+        public _404TemplateRenderer(_404Template input) : base(input) { }
 
         public override string GetHtmlContents()
         {
@@ -31,6 +28,6 @@ namespace _30abysses.WWW.Utilities.UpdateWebsite.Renderer
             throw new NotImplementedException();
         }
 
-        public override string GetPseudoInputFilePath() => Path.Combine(Input.Path, IndexHtmlFilename);
+        public override string GetPseudoInputFilePath() => Input.Path;
     }
 }

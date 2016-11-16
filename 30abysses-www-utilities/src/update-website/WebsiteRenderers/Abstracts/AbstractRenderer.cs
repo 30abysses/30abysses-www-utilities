@@ -1,4 +1,4 @@
-﻿namespace _30abysses.WWW.Utilities.UpdateWebsite.Renderer
+﻿namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Abstracts
 {
     public abstract class AbstractRenderer<T>
     {

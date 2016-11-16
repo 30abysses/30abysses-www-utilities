@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using _30abysses.WWW.Utilities.Common.RawContents.Contents;
+﻿using _30abysses.WWW.Utilities.Common.RawContents.Contents;
+using _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Abstracts;
+using System;
 using System.IO;
 
-namespace _30abysses.WWW.Utilities.UpdateWebsite.Renderer
+namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Renderers
 {
-    public class YearRenderer : AbstractRenderer<Year>
+    public class TopicRenderer : AbstractRenderer<Topic>
     {
-        public YearRenderer(Year input) : base(input) { }
+        public TopicRenderer(Topic input) : base(input) { }
 
         public override string GetHtmlContents()
         {
@@ -31,6 +29,6 @@ namespace _30abysses.WWW.Utilities.UpdateWebsite.Renderer
             throw new NotImplementedException();
         }
 
-        public override string GetPseudoInputFilePath() => Path.Combine(Input.Path, IndexHtmlFilename);
+        public override string GetPseudoInputFilePath() => Path.ChangeExtension(Input.Path, HtmlExtensionFilename);
     }
 }
