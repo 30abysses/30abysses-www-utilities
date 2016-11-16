@@ -6,12 +6,14 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
 {
     public class MetaTopic : AbstractTopic, IVisitable
     {
-        public MetaTopic(string path, Container container) : base(path, container) { }
+        public Topic Topic { get; }
 
-        public static MetaTopic Get(Topic owner)
+        public MetaTopic(string path, Container container, Topic topic) : base(path, container) { Topic = topic; }
+
+        public static MetaTopic Get(Topic topic)
         {
-            var path = System.IO.Path.ChangeExtension(owner.Path, ".meta.md");
-            return File.Exists(path) ? new MetaTopic(path, owner.Container) : null;
+            var path = System.IO.Path.ChangeExtension(topic.Path, ".meta.md");
+            return File.Exists(path) ? new MetaTopic(path, topic.Container, topic) : null;
         }
 
         void IVisitable.Accept(ContentVisitor visitor)
