@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Text;
 
 namespace _30abysses.WWW.Utilities.Common
 {
@@ -24,5 +25,7 @@ namespace _30abysses.WWW.Utilities.Common
             CreateOutputDirectory(inputDirectoryPath);
             foreach (var path in Directory.EnumerateFiles(inputDirectoryPath)) { CopyFileToOutputDirectory(path); }
         }
+
+        public void CreateOutputFile(string pseudoInputFilePath, string outputFileContents) => File.WriteAllText(GetOutputPath(pseudoInputFilePath), outputFileContents, Encoding.UTF8);
     }
 }

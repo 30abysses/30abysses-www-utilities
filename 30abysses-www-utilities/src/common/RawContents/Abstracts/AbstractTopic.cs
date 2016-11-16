@@ -3,7 +3,7 @@ using _30abysses.WWW.Utilities.Common.RawContents.Metadata;
 
 namespace _30abysses.WWW.Utilities.Common.RawContents.Abstracts
 {
-    public class AbstractTopic : Item
+    public abstract class AbstractTopic : Item
     {
         public AssetContainer AssetContainer { get; }
 
