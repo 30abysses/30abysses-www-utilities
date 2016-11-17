@@ -9,17 +9,17 @@ namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Renderers
     {
         public MetaTopicRenderer(MetaTopic input) : base(input) { }
 
-        public override string GetHtmlContents()
+        protected override string GetHtmlContents()
         {
             throw new NotImplementedException();
         }
 
-        public override string GetHtmlNavigation()
+        protected override string GetHtmlNavigation()
         {
             throw new NotImplementedException();
         }
 
-        public override string GetHtmlTitle()
+        protected override string GetHtmlTitle()
         {
             throw new NotImplementedException();
         }

@@ -9,17 +9,17 @@ namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Renderers
     {
         public WwwRootRenderer(WwwRoot input) : base(input) { }
 
-        public override string GetHtmlContents()
+        protected override string GetHtmlContents()
         {
             throw new NotImplementedException();
         }
 
-        public override string GetHtmlNavigation()
+        protected override string GetHtmlNavigation()
         {
             throw new NotImplementedException();
         }
 
-        public override string GetHtmlTitle() => "30abysses (卅淵)";
+        protected override string GetHtmlTitle() => "30abysses (卅淵)";
 
         public override string GetOutputFileContents()
         {
