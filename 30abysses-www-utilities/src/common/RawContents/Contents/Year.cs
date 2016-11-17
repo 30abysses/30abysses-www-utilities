@@ -27,6 +27,6 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
             visitor.Leave(this);
         }
 
-        public static readonly Regex YYYY = new Regex(@"\d{4}");
+        private static readonly Regex YYYY = new Regex(@"\d{4}");
     }
 }
