@@ -21,6 +21,8 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
 
         public void Add(Item item) => cache[item] = cache[item.Container];
 
+        public WwwRootAssetContainerInfo this[Item key] { get { return cache[key]; } }
+
         private readonly AssetContainer wwwRootAssetContainer;
         private readonly IDictionary<Item, WwwRootAssetContainerInfo> cache;
     }

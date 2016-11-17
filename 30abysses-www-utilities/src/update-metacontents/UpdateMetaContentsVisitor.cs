@@ -86,42 +86,63 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
         {
             var contentMetadataInfo = contentMetadataInfoCache[((OrganizationalContainer) metaTopic.Container).ContentMetadata];
             contentIO.CreateOutputFile(contentMetadataInfo.GetPseudoInputFilePath(metaTopic.Path), contentMetadataInfo.GetOutputFileContents());
+
+            var wwwRootAssetContainerInfo = wwwRootAssetContainerInfoCache[metaTopic];
+            contentIO.CreateOutputFile(wwwRootAssetContainerInfo.GetPseudoInputFilePath(metaTopic.Path), wwwRootAssetContainerInfo.GetOutputFileContents());
         }
 
         public override void Leave(Topic topic)
         {
             var contentMetadataInfo = contentMetadataInfoCache[((OrganizationalContainer) topic.Container).ContentMetadata];
             contentIO.CreateOutputFile(contentMetadataInfo.GetPseudoInputFilePath(topic.Path), contentMetadataInfo.GetOutputFileContents());
+
+            var wwwRootAssetContainerInfo = wwwRootAssetContainerInfoCache[topic];
+            contentIO.CreateOutputFile(wwwRootAssetContainerInfo.GetPseudoInputFilePath(topic.Path), wwwRootAssetContainerInfo.GetOutputFileContents());
         }
 
         public override void Leave(Day day)
         {
             var contentMetadataInfo = contentMetadataInfoCache[day.ContentMetadata];
             contentIO.CreateOutputFile(contentMetadataInfo.GetPseudoInputFilePath(day.Path), contentMetadataInfo.GetOutputFileContents());
+
+            var wwwRootAssetContainerInfo = wwwRootAssetContainerInfoCache[day];
+            contentIO.CreateOutputFile(wwwRootAssetContainerInfo.GetPseudoInputFilePath(day.Path), wwwRootAssetContainerInfo.GetOutputFileContents());
         }
 
         public override void Leave(Month month)
         {
             var contentMetadataInfo = contentMetadataInfoCache[month.ContentMetadata];
             contentIO.CreateOutputFile(contentMetadataInfo.GetPseudoInputFilePath(month.Path), contentMetadataInfo.GetOutputFileContents());
+
+            var wwwRootAssetContainerInfo = wwwRootAssetContainerInfoCache[month];
+            contentIO.CreateOutputFile(wwwRootAssetContainerInfo.GetPseudoInputFilePath(month.Path), wwwRootAssetContainerInfo.GetOutputFileContents());
         }
 
         public override void Leave(Year year)
         {
             var contentMetadataInfo = contentMetadataInfoCache[year.ContentMetadata];
             contentIO.CreateOutputFile(contentMetadataInfo.GetPseudoInputFilePath(year.Path), contentMetadataInfo.GetOutputFileContents());
+
+            var wwwRootAssetContainerInfo = wwwRootAssetContainerInfoCache[year];
+            contentIO.CreateOutputFile(wwwRootAssetContainerInfo.GetPseudoInputFilePath(year.Path), wwwRootAssetContainerInfo.GetOutputFileContents());
         }
 
         public override void Leave(Zone zone)
         {
             var contentMetadataInfo = contentMetadataInfoCache[zone.ContentMetadata];
             contentIO.CreateOutputFile(contentMetadataInfo.GetPseudoInputFilePath(zone.Path), contentMetadataInfo.GetOutputFileContents());
+
+            var wwwRootAssetContainerInfo = wwwRootAssetContainerInfoCache[zone];
+            contentIO.CreateOutputFile(wwwRootAssetContainerInfo.GetPseudoInputFilePath(zone.Path), wwwRootAssetContainerInfo.GetOutputFileContents());
         }
 
         public override void Leave(WwwRoot wwwRoot)
         {
             var contentMetadataInfo = contentMetadataInfoCache[wwwRoot.ContentMetadata];
             contentIO.CreateOutputFile(contentMetadataInfo.GetPseudoInputFilePath(wwwRoot.Path), contentMetadataInfo.GetOutputFileContents());
+
+            var wwwRootAssetContainerInfo = wwwRootAssetContainerInfoCache[wwwRoot];
+            contentIO.CreateOutputFile(wwwRootAssetContainerInfo.GetPseudoInputFilePath(wwwRoot.Path), wwwRootAssetContainerInfo.GetOutputFileContents());
         }
 
         private readonly ContentIO contentIO;
