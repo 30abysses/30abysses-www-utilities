@@ -74,6 +74,48 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
             contentMetadataInfoCache.Add(((OrganizationalContainer) metaTopic.Container).ContentMetadata);
         }
 
+        public override void Leave(MetaTopic metaTopic)
+        {
+            var contentMetadataInfo = contentMetadataInfoCache[((OrganizationalContainer) metaTopic.Container).ContentMetadata];
+            contentIO.CreateOutputFile(contentMetadataInfo.GetPseudoInputFilePath(metaTopic.Path), contentMetadataInfo.GetOutputFileContents());
+        }
+
+        public override void Leave(Topic topic)
+        {
+            var contentMetadataInfo = contentMetadataInfoCache[((OrganizationalContainer) topic.Container).ContentMetadata];
+            contentIO.CreateOutputFile(contentMetadataInfo.GetPseudoInputFilePath(topic.Path), contentMetadataInfo.GetOutputFileContents());
+        }
+
+        public override void Leave(Day day)
+        {
+            var contentMetadataInfo = contentMetadataInfoCache[day.ContentMetadata];
+            contentIO.CreateOutputFile(contentMetadataInfo.GetPseudoInputFilePath(day.Path), contentMetadataInfo.GetOutputFileContents());
+        }
+
+        public override void Leave(Month month)
+        {
+            var contentMetadataInfo = contentMetadataInfoCache[month.ContentMetadata];
+            contentIO.CreateOutputFile(contentMetadataInfo.GetPseudoInputFilePath(month.Path), contentMetadataInfo.GetOutputFileContents());
+        }
+
+        public override void Leave(Year year)
+        {
+            var contentMetadataInfo = contentMetadataInfoCache[year.ContentMetadata];
+            contentIO.CreateOutputFile(contentMetadataInfo.GetPseudoInputFilePath(year.Path), contentMetadataInfo.GetOutputFileContents());
+        }
+
+        public override void Leave(Zone zone)
+        {
+            var contentMetadataInfo = contentMetadataInfoCache[zone.ContentMetadata];
+            contentIO.CreateOutputFile(contentMetadataInfo.GetPseudoInputFilePath(zone.Path), contentMetadataInfo.GetOutputFileContents());
+        }
+
+        public override void Leave(WwwRoot wwwRoot)
+        {
+            var contentMetadataInfo = contentMetadataInfoCache[wwwRoot.ContentMetadata];
+            contentIO.CreateOutputFile(contentMetadataInfo.GetPseudoInputFilePath(wwwRoot.Path), contentMetadataInfo.GetOutputFileContents());
+        }
+
         private readonly ContentIO contentIO;
         private AssetContainer wwwRootAssetContainer;
         private readonly ContentMetadataInfoCache contentMetadataInfoCache;
