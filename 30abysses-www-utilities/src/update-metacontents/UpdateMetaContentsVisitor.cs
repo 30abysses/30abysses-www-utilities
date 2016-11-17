@@ -7,36 +7,46 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
 {
     public class UpdateMetaContentsVisitor : ContentVisitor
     {
-        public ContentIO ContentIO { get; }
+        public UpdateMetaContentsVisitor(string rootInputDirectoryPath, string rootOutputDirectoryPath)
+        {
+            contentIO = new ContentIO(rootInputDirectoryPath, rootOutputDirectoryPath);
+            contentMetadataInfoCache = new ContentMetadataInfoCache();
+        }
 
-        public UpdateMetaContentsVisitor(string rootInputDirectoryPath, string rootOutputDirectoryPath) { ContentIO = new ContentIO(rootInputDirectoryPath, rootOutputDirectoryPath); }
+        public override void Visit(ContentsRoot contentsRoot) => contentIO.CreateOutputDirectory(contentsRoot.Path);
 
-        public override void Visit(ContentsRoot contentsRoot) => ContentIO.CreateOutputDirectory(contentsRoot.Path);
+        public override void Visit(WwwRoot wwwRoot)
+        {
+            contentIO.CreateOutputDirectory(wwwRoot.Path);
+            wwwRootAssetContainer = wwwRoot.AssetContainer;
+        }
 
-        public override void Visit(WwwRoot wwwRoot) => ContentIO.CreateOutputDirectory(wwwRoot.Path);
+        public override void Visit(ContentMetadata contentMetadata) => contentIO.CopyFileToOutputDirectory(contentMetadata.Path);
 
-        public override void Visit(ContentMetadata contentMetadata) => ContentIO.CopyFileToOutputDirectory(contentMetadata.Path);
+        public override void Visit(IndexTemplate indexTemplate) => contentIO.CopyFileToOutputDirectory(indexTemplate.Path);
 
-        public override void Visit(IndexTemplate indexTemplate) => ContentIO.CopyFileToOutputDirectory(indexTemplate.Path);
+        public override void Visit(LogoTemplate logoTemplate) => contentIO.CopyFileToOutputDirectory(logoTemplate.Path);
 
-        public override void Visit(LogoTemplate logoTemplate) => ContentIO.CopyFileToOutputDirectory(logoTemplate.Path);
+        public override void Visit(TopicTemplate topicTemplate) => contentIO.CopyFileToOutputDirectory(topicTemplate.Path);
 
-        public override void Visit(TopicTemplate topicTemplate) => ContentIO.CopyFileToOutputDirectory(topicTemplate.Path);
+        public override void Visit(_404Template _404Template) => contentIO.CopyFileToOutputDirectory(_404Template.Path);
 
-        public override void Visit(_404Template _404Template) => ContentIO.CopyFileToOutputDirectory(_404Template.Path);
+        public override void Visit(AssetContainer assetContainer) => contentIO.CopyDirectoryToOutputDirectory(assetContainer.Path);
 
-        public override void Visit(AssetContainer assetContainer) => ContentIO.CopyDirectoryToOutputDirectory(assetContainer.Path);
+        public override void Visit(Zone zone) => contentIO.CreateOutputDirectory(zone.Path);
 
-        public override void Visit(Zone zone) => ContentIO.CreateOutputDirectory(zone.Path);
+        public override void Visit(Year year) => contentIO.CreateOutputDirectory(year.Path);
 
-        public override void Visit(Year year) => ContentIO.CreateOutputDirectory(year.Path);
+        public override void Visit(Month month) => contentIO.CreateOutputDirectory(month.Path);
 
-        public override void Visit(Month month) => ContentIO.CreateOutputDirectory(month.Path);
+        public override void Visit(Day day) => contentIO.CreateOutputDirectory(day.Path);
 
-        public override void Visit(Day day) => ContentIO.CreateOutputDirectory(day.Path);
+        public override void Visit(Topic topic) => contentIO.CopyFileToOutputDirectory(topic.Path);
 
-        public override void Visit(Topic topic) => ContentIO.CopyFileToOutputDirectory(topic.Path);
+        public override void Visit(MetaTopic metaTopic) => contentIO.CopyFileToOutputDirectory(metaTopic.Path);
 
-        public override void Visit(MetaTopic metaTopic) => ContentIO.CopyFileToOutputDirectory(metaTopic.Path);
+        private readonly ContentIO contentIO;
+        private AssetContainer wwwRootAssetContainer;
+        private readonly ContentMetadataInfoCache contentMetadataInfoCache;
     }
 }
