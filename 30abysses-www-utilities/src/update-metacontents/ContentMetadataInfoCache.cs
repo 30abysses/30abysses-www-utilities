@@ -6,6 +6,11 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
 {
     public class ContentMetadataInfoCache
     {
+        public ContentMetadataInfoCache()
+        {
+            cache = new Dictionary<ContentMetadata, ContentMetadataInfo>();
+        }
+
         public void Add(ContentMetadata contentMetadata)
         {
             if (cache.ContainsKey(contentMetadata)) { return; }
@@ -18,6 +23,6 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
 
         public ContentMetadataInfo this[ContentMetadata key] { get { return cache[key]; } }
 
-        private IDictionary<ContentMetadata, ContentMetadataInfo> cache = new Dictionary<ContentMetadata, ContentMetadataInfo>();
+        private readonly IDictionary<ContentMetadata, ContentMetadataInfo> cache;
     }
 }

@@ -18,8 +18,9 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
         public override void Visit(WwwRoot wwwRoot)
         {
             contentIO.CreateOutputDirectory(wwwRoot.Path);
-            wwwRootAssetContainer = wwwRoot.AssetContainer;
             contentMetadataInfoCache.Add(wwwRoot.ContentMetadata);
+            wwwRootAssetContainerInfoCache = new WwwRootAssetContainerInfoCache(wwwRoot.AssetContainer);
+            wwwRootAssetContainerInfoCache.Add(wwwRoot);
         }
 
         public override void Visit(ContentMetadata contentMetadata) => contentIO.CopyFileToOutputDirectory(contentMetadata.Path);
@@ -34,6 +35,7 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
         {
             contentIO.CopyFileToOutputDirectory(_404Template.Path);
             contentMetadataInfoCache.Add(((OrganizationalContainer) _404Template.Container).ContentMetadata);
+            wwwRootAssetContainerInfoCache.Add(_404Template);
         }
 
         public override void Visit(AssetContainer assetContainer) => contentIO.CopyDirectoryToOutputDirectory(assetContainer.Path);
@@ -42,36 +44,42 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
         {
             contentIO.CreateOutputDirectory(zone.Path);
             contentMetadataInfoCache.Add(zone.ContentMetadata);
+            wwwRootAssetContainerInfoCache.Add(zone);
         }
 
         public override void Visit(Year year)
         {
             contentIO.CreateOutputDirectory(year.Path);
             contentMetadataInfoCache.Add(year.ContentMetadata);
+            wwwRootAssetContainerInfoCache.Add(year);
         }
 
         public override void Visit(Month month)
         {
             contentIO.CreateOutputDirectory(month.Path);
             contentMetadataInfoCache.Add(month.ContentMetadata);
+            wwwRootAssetContainerInfoCache.Add(month);
         }
 
         public override void Visit(Day day)
         {
             contentIO.CreateOutputDirectory(day.Path);
             contentMetadataInfoCache.Add(day.ContentMetadata);
+            wwwRootAssetContainerInfoCache.Add(day);
         }
 
         public override void Visit(Topic topic)
         {
             contentIO.CopyFileToOutputDirectory(topic.Path);
             contentMetadataInfoCache.Add(((OrganizationalContainer) topic.Container).ContentMetadata);
+            wwwRootAssetContainerInfoCache.Add(topic);
         }
 
         public override void Visit(MetaTopic metaTopic)
         {
             contentIO.CopyFileToOutputDirectory(metaTopic.Path);
             contentMetadataInfoCache.Add(((OrganizationalContainer) metaTopic.Container).ContentMetadata);
+            wwwRootAssetContainerInfoCache.Add(metaTopic);
         }
 
         public override void Leave(MetaTopic metaTopic)
@@ -117,7 +125,7 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
         }
 
         private readonly ContentIO contentIO;
-        private AssetContainer wwwRootAssetContainer;
         private readonly ContentMetadataInfoCache contentMetadataInfoCache;
+        private WwwRootAssetContainerInfoCache wwwRootAssetContainerInfoCache;
     }
 }
