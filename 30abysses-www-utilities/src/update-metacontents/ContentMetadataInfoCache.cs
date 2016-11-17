@@ -6,15 +6,11 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
 {
     public class ContentMetadataInfoCache
     {
-        public ContentMetadataInfoCache()
-        {
-            cache = new Dictionary<ContentMetadata, ContentMetadataInfo>();
-        }
+        public ContentMetadataInfoCache() { cache = new Dictionary<ContentMetadata, ContentMetadataInfo>(); }
 
         public void Add(ContentMetadata contentMetadata)
         {
             if (cache.ContainsKey(contentMetadata)) { return; }
-
             var fallbackContentMetadata = contentMetadata.Fallback;
             ContentMetadataInfo fallbackContentMetadataInfo = null;
             if (fallbackContentMetadata != null) { fallbackContentMetadataInfo = cache.ContainsKey(fallbackContentMetadata) ? cache[fallbackContentMetadata] : null; }
