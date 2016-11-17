@@ -22,6 +22,10 @@ namespace _30abysses.WWW.Utilities.UpdateWebsite
 
         public override void Visit(Day day) => contentIO.CreateOutputDirectory(day.Path);
 
+        public override void Visit(Topic topic) => contentIO.CopyFileToOutputDirectory(topic.Path);
+
+        public override void Visit(MetaTopic metaTopic) => contentIO.CopyFileToOutputDirectory(metaTopic.Path);
+
         public override void Leave(MetaTopic metaTopic)
         {
             var renderer = new MetaTopicRenderer(metaTopic);
