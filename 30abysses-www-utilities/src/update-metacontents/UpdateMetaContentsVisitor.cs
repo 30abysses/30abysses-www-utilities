@@ -16,6 +16,7 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
             itemInfoCache = new ItemInfoCache();
             abstractTopicInfoCache = new AbstractTopicInfoCache();
             organizationInfoCache = new OrganizationInfoCache();
+            indexInfoCache = new IndexInfoCache();
         }
 
         public override void Visit(ContentsRoot contentsRoot) => contentIO.CreateOutputDirectory(contentsRoot.Path);
@@ -85,15 +86,35 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
 
         public override void Leave(Topic topic) => Leave(topic);
 
-        public override void Leave(Day day) => Leave(day);
+        public override void Leave(Day day)
+        {
+            indexInfoCache.Add(day);
+            Leave(day);
+        }
 
-        public override void Leave(Month month) => Leave(month);
+        public override void Leave(Month month)
+        {
+            indexInfoCache.Add(month, month.Days);
+            Leave(month);
+        }
 
-        public override void Leave(Year year) => Leave(year);
+        public override void Leave(Year year)
+        {
+            indexInfoCache.Add(year, year.Months);
+            Leave(year);
+        }
 
-        public override void Leave(Zone zone) => Leave(zone);
+        public override void Leave(Zone zone)
+        {
+            indexInfoCache.Add(zone, zone.Years);
+            Leave(zone);
+        }
 
-        public override void Leave(WwwRoot wwwRoot) => Leave(wwwRoot);
+        public override void Leave(WwwRoot wwwRoot)
+        {
+            indexInfoCache.Add(wwwRoot, wwwRoot.Zones);
+            Leave(wwwRoot);
+        }
 
         private void Visit<T>(AbstractMetadata<T> abstractMetadata) => contentIO.CopyFileToOutputDirectory(abstractMetadata.Path);
 
@@ -102,7 +123,11 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
             Visit((Item) abstractTopic);
         }
 
-        private void Leave(OrganizationalContainer organizationalContainer) => Leave(organizationalContainer, organizationalContainer.GetContentMetadata());
+        private void Leave(OrganizationalContainer organizationalContainer)
+        {
+            contentIO.CreateOutputFile(IndexInfo.GetPseudoInputFilePath(organizationalContainer.Path), indexInfoCache[organizationalContainer].GetOutputFileContents());
+            Leave(organizationalContainer, organizationalContainer.GetContentMetadata());
+        }
 
         private void Leave(Item item) => Leave(item, item.GetContentMetadata());
 
@@ -145,6 +170,7 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
         private readonly ItemInfoCache itemInfoCache;
         private readonly AbstractTopicInfoCache abstractTopicInfoCache;
         private readonly OrganizationInfoCache organizationInfoCache;
+        private readonly IndexInfoCache indexInfoCache;
     }
 
     public static class ExtensionMethods
