@@ -23,10 +23,10 @@ namespace _30abysses.WWW.Utilities.Common.MetaContents.Contents
             return wwwRootAssetContainerInfo;
         }
 
-        private const string wwwroot_assets = "wwwroot.assets";
-
-        public string GetPseudoInputFilePath(string path) => path + ".www-root-asset-container-info.json";
-
         public string GetOutputFileContents() => JsonConvert.SerializeObject(this, Formatting.Indented);
+
+        public static string GetPseudoInputFilePath(string path) => path + ".www-root-asset-container-info.json";
+
+        private const string wwwroot_assets = "wwwroot.assets";
     }
 }

@@ -18,7 +18,7 @@ namespace _30abysses.WWW.Utilities.Common.MetaContents.Metadata
 
         public string GetOutputFileContents() => JsonConvert.SerializeObject(this, Formatting.Indented);
 
-        public string GetPseudoInputFilePath(string path) => path + ".metadata-info.json";
+        public static string GetPseudoInputFilePath(string path) => path + ".metadata-info.json";
 
         private static void Merge<K, V>(IDictionary<K, V> from, IDictionary<K, V> to) { foreach (var keyValue in from) { to[keyValue.Key] = keyValue.Value; } }
     }
