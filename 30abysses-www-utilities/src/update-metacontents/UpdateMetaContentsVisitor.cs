@@ -68,16 +68,14 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
 
         public override void Visit(Topic topic)
         {
-            abstractTopicInfoCache.Add(topic);
-            itemInfoCache.Add(topic, abstractTopicInfoCache[topic]);
             Visit(topic);
+            itemInfoCache.Add(topic, abstractTopicInfoCache[topic]);
         }
 
         public override void Visit(MetaTopic metaTopic)
         {
-            abstractTopicInfoCache.Add(metaTopic);
-            itemInfoCache.Add(metaTopic, abstractTopicInfoCache[metaTopic]);
             Visit(metaTopic);
+            itemInfoCache.Add(metaTopic, abstractTopicInfoCache[metaTopic]);
         }
 
         public override void Leave(MetaTopic metaTopic) => Leave(metaTopic);
@@ -95,6 +93,12 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
         public override void Leave(WwwRoot wwwRoot) => Leave(wwwRoot);
 
         private void Visit<T>(AbstractMetadata<T> abstractMetadata) => contentIO.CopyFileToOutputDirectory(abstractMetadata.Path);
+
+        private void Visit(AbstractTopic abstractTopic)
+        {
+            abstractTopicInfoCache.Add(abstractTopic);
+            Visit((Item) abstractTopic);
+        }
 
         private void Leave(OrganizationalContainer organizationalContainer)
         {
