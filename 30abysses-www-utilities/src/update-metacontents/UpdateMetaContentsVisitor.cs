@@ -15,6 +15,7 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
             contentMetadataInfoCache = new ContentMetadataInfoCache();
             itemInfoCache = new ItemInfoCache();
             abstractTopicInfoCache = new AbstractTopicInfoCache();
+            organizationInfoCache = new OrganizationInfoCache();
         }
 
         public override void Visit(ContentsRoot contentsRoot) => contentIO.CreateOutputDirectory(contentsRoot.Path);
@@ -68,14 +69,16 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
 
         public override void Visit(Topic topic)
         {
-            Visit(topic);
+            abstractTopicInfoCache.Add(topic);
             itemInfoCache.Add(topic, abstractTopicInfoCache[topic]);
+            Visit(topic);
         }
 
         public override void Visit(MetaTopic metaTopic)
         {
-            Visit(metaTopic);
+            abstractTopicInfoCache.Add(metaTopic);
             itemInfoCache.Add(metaTopic, abstractTopicInfoCache[metaTopic]);
+            Visit(metaTopic);
         }
 
         public override void Leave(MetaTopic metaTopic) => Leave(metaTopic);
@@ -96,40 +99,43 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
 
         private void Visit(AbstractTopic abstractTopic)
         {
-            abstractTopicInfoCache.Add(abstractTopic);
             Visit((Item) abstractTopic);
         }
 
-        private void Leave(OrganizationalContainer organizationalContainer)
-        {
-            contentIO.CreateOutputFile(ContentMetadataInfo.GetPseudoInputFilePath(organizationalContainer.Path), contentMetadataInfoCache[organizationalContainer.ContentMetadata].GetOutputFileContents());
-            contentIO.CreateOutputFile(WwwRootAssetContainerInfo.GetPseudoInputFilePath(organizationalContainer.Path), wwwRootAssetContainerInfoCache[organizationalContainer].GetOutputFileContents());
-        }
+        private void Leave(OrganizationalContainer organizationalContainer) => Leave(organizationalContainer, organizationalContainer.GetContentMetadata());
 
-        private void Leave(Item item)
+        private void Leave(Item item) => Leave(item, item.GetContentMetadata());
+
+        private void Leave(Item item, ContentMetadata itemContentMetadata)
         {
-            contentIO.CreateOutputFile(ContentMetadataInfo.GetPseudoInputFilePath(item.Path), contentMetadataInfoCache[((OrganizationalContainer) item.Container).ContentMetadata].GetOutputFileContents());
+            contentIO.CreateOutputFile(ContentMetadataInfo.GetPseudoInputFilePath(item.Path), contentMetadataInfoCache[itemContentMetadata].GetOutputFileContents());
             contentIO.CreateOutputFile(WwwRootAssetContainerInfo.GetPseudoInputFilePath(item.Path), wwwRootAssetContainerInfoCache[item].GetOutputFileContents());
+            contentIO.CreateOutputFile(OrganizationInfo.GetPseudoInputFilePath(item.Path), organizationInfoCache[item].GetOutputFileContents());
         }
 
         private void Visit(OrganizationalContainer organizationalContainer)
         {
             contentIO.CreateOutputDirectory(organizationalContainer.Path);
-            contentMetadataInfoCache.Add(organizationalContainer.ContentMetadata);
             wwwRootAssetContainerInfoCache.Add(organizationalContainer);
+            Visit(organizationalContainer, organizationalContainer.GetContentMetadata());
         }
 
         private void Visit(Item item)
         {
             contentIO.CopyFileToOutputDirectory(item.Path);
-            contentMetadataInfoCache.Add(((OrganizationalContainer) item.Container).ContentMetadata);
             wwwRootAssetContainerInfoCache.Add(item);
+            Visit(item, item.GetContentMetadata());
+        }
+
+        private void Visit(Item item, ContentMetadata itemContentMetadata)
+        {
+            contentMetadataInfoCache.Add(itemContentMetadata);
+            organizationInfoCache.Add(item, itemInfoCache[item]);
         }
 
         private void Leave(AbstractTopic abstractTopic)
         {
             Leave((Item) abstractTopic);
-
             contentIO.CreateOutputFile(AbstractTopicInfo.GetPseudoInputFilePath(abstractTopic.Path), abstractTopicInfoCache[abstractTopic].GetOutputFileContents());
         }
 
@@ -138,5 +144,13 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
         private WwwRootAssetContainerInfoCache wwwRootAssetContainerInfoCache;
         private readonly ItemInfoCache itemInfoCache;
         private readonly AbstractTopicInfoCache abstractTopicInfoCache;
+        private readonly OrganizationInfoCache organizationInfoCache;
+    }
+
+    public static class ExtensionMethods
+    {
+        public static ContentMetadata GetContentMetadata(this Item item) => ((OrganizationalContainer) item.Container).ContentMetadata;
+
+        public static ContentMetadata GetContentMetadata(this OrganizationalContainer organizationalContainer) => organizationalContainer.ContentMetadata;
     }
 }

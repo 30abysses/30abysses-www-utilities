@@ -19,6 +19,8 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
 
         public void Add(MetaTopic metaTopic, AbstractTopicInfo abstractTopicInfo) => cache[metaTopic] = ItemInfo.New(metaTopic, abstractTopicInfo);
 
+        public ItemInfo this[Item key] { get { return cache[key]; } }
+
         private readonly IDictionary<Item, ItemInfo> cache;
     }
 }
