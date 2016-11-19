@@ -4,6 +4,6 @@
     {
         public T Owner { get; }
 
-        public AbstractMetadata(string path, Container container, T owner) : base(path, container) { Owner = owner; }
+        protected AbstractMetadata(string path, Container container, T owner) : base(path, container) { Owner = owner; }
     }
 }

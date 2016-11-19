@@ -7,13 +7,13 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Abstracts
     public abstract class OrganizationalContainer : Container
     {
         public ContentMetadata ContentMetadata { get; private set; }
-        public IndexTemplate IndexTemplate { get; private set; }
-        public LogoTemplate LogoTemplate { get; private set; }
-        public TopicTemplate TopicTemplate { get; private set; }
+        protected IndexTemplate IndexTemplate { get; private set; }
+        protected LogoTemplate LogoTemplate { get; private set; }
+        protected TopicTemplate TopicTemplate { get; private set; }
 
-        public OrganizationalContainer(string path, ContentsRoot container) : base(path, container) { Initialize(null); }
+        protected OrganizationalContainer(string path, ContentsRoot container) : base(path, container) { Initialize(null); }
 
-        public OrganizationalContainer(string path, OrganizationalContainer container) : base(path, container) { Initialize(container); }
+        protected OrganizationalContainer(string path, OrganizationalContainer container) : base(path, container) { Initialize(container); }
 
         private void Initialize(OrganizationalContainer fallbackContainer)
         {
