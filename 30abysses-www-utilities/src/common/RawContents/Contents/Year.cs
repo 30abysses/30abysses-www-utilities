@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using SysIoPath = System.IO.Path;
 
 namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
 {
@@ -11,13 +12,13 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
     {
         public IEnumerable<Month> Months { get; }
 
-        public Year(string path, Zone container) : base(path, container) { Months = Month.Get(this); }
-
-        public static IEnumerable<Year> Get(Zone container) =>
-            Directory.GetDirectories(container.Path, "????")
-            .Where(path => YYYY.IsMatch(System.IO.Path.GetFileName(path)))
-            .Select(path => new Year(path, container))
-            .ToArray();
+        internal Year(string path, Zone container) : base(path, container)
+        {
+            Months = Directory.GetDirectories(Path, Month.FilenamePattern)
+                .Where(filePath => Month.FilenameRegex.IsMatch(SysIoPath.GetFileName(filePath)))
+                .Select(filePath => new Month(filePath, this))
+                .ToArray();
+        }
 
         void IVisitable.Accept(ContentVisitor visitor)
         {
@@ -27,6 +28,7 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
             visitor.Leave(this);
         }
 
-        private static readonly Regex YYYY = new Regex(@"\d{4}");
+        internal const string FilenamePattern = "????";
+        internal static readonly Regex FilenameRegex = new Regex(@"^[1-9][0-9]{3}$", RegexOptions.CultureInvariant);
     }
 }

@@ -2,7 +2,7 @@
 {
     public abstract class AbstractMetadata<T> : Item
     {
-        public T Owner { get; }
+        internal T Owner { get; }
 
         protected AbstractMetadata(string path, Container container, T owner) : base(path, container) { Owner = owner; }
     }

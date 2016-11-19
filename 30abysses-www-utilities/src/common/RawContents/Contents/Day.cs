@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using SysIoPath = System.IO.Path;
 
 namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
 {
@@ -11,13 +12,13 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
     {
         public IEnumerable<Topic> Topics { get; }
 
-        public Day(string path, Month container) : base(path, container) { Topics = Topic.Get(this); }
-
-        public static IEnumerable<Day> Get(Month container) =>
-            Directory.GetDirectories(container.Path, "??")
-            .Where(path => DD.IsMatch(System.IO.Path.GetFileName(path)))
-            .Select(path => new Day(path, container))
-            .ToArray();
+        internal Day(string path, Month container) : base(path, container)
+        {
+            Topics = Directory.GetFiles(Path, Topic.FilenamePattern)
+                .Where(filePath => Topic.FilenameRegex.IsMatch(SysIoPath.GetFileName(filePath)))
+                .Select(filePath => new Topic(filePath, this))
+                .ToArray();
+        }
 
         void IVisitable.Accept(ContentVisitor visitor)
         {
@@ -27,6 +28,7 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
             visitor.Leave(this);
         }
 
-        private static readonly Regex DD = new Regex(@"\d{2}");
+        internal const string FilenamePattern = "??";
+        internal static readonly Regex FilenameRegex = new Regex(@"^[0-3][0-9]$", RegexOptions.CultureInvariant);
     }
 }

@@ -3,26 +3,34 @@ using _30abysses.WWW.Utilities.Common.RawContents.Interfaces;
 using _30abysses.WWW.Utilities.Common.RawContents.Metadata;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using SysIoPath = System.IO.Path;
 
 namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
 {
     public class WwwRoot : OrganizationalContainer, IVisitable
     {
-        public _404Template _404Template { get; }
         public AssetContainer AssetContainer { get; }
         public IEnumerable<Zone> Zones { get; }
 
-        public WwwRoot(string path, ContentsRoot container) : base(path, container)
+        internal WwwRoot(string path, ContentsRoot container) : base(path, container)
         {
-            AssetContainer = AssetContainer.Get(this);
-            _404Template = _404Template.Get(this);
-            Zones = Zone.Get(this);
-        }
+            {
+                var itemPath = SysIoPath.Combine(Path, AssetContainer.Filename);
+                AssetContainer = Directory.Exists(itemPath) ? new AssetContainer(itemPath, this, this) : null;
+            }
 
-        public static WwwRoot Get(ContentsRoot container)
-        {
-            var path = System.IO.Path.Combine(container.Path, "WwwRoot");
-            return Directory.Exists(path) ? new WwwRoot(path, container) : null;
+            {
+                var itemPath = SysIoPath.Combine(Path, _404Template.Filename);
+                _404Template = File.Exists(itemPath) ? new _404Template(itemPath, this) : null;
+            }
+
+            {
+                Zones = Directory.GetDirectories(Path, Zone.FilenamePattern)
+                    .Where(filePath => Zone.FilenameRegex.IsMatch(SysIoPath.GetFileName(filePath)))
+                    .Select(filePath => new Zone(filePath, this))
+                    .ToArray();
+            }
         }
 
         void IVisitable.Accept(ContentVisitor visitor)
@@ -34,5 +42,9 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
             foreach (var zone in Zones) { ((IVisitable) zone).Accept(visitor); }
             visitor.Leave(this);
         }
+
+        internal const string Filename = "WwwRoot";
+
+        private readonly _404Template _404Template;
     }
 }
