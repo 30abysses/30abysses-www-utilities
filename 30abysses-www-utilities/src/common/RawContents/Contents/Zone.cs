@@ -14,7 +14,7 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
 
         internal Zone(string path, WwwRoot container) : base(path, container)
         {
-            Years = Directory.GetDirectories(container.Path, Year.FilenamePattern)
+            Years = Directory.GetDirectories(Path, Year.FilenamePattern)
                 .Where(filePath => Year.FilenameRegex.IsMatch(SysIoPath.GetFileName(filePath)))
                 .Select(filePath => new Year(filePath, this))
                 .ToArray();

@@ -23,7 +23,7 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
         }
 
         internal const string FilenamePattern = "*.md";
-        internal static readonly Regex FilenameRegex = new Regex(@"^[a-z_0-9.]+\.md$", RegexOptions.CultureInvariant);
+        internal static readonly Regex FilenameRegex = new Regex(@"^[a-z_0-9.-]+\.md$", RegexOptions.CultureInvariant);
 
         private readonly MetaTopic metaTopic;
     }

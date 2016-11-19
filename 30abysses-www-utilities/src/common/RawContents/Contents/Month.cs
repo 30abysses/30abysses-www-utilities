@@ -14,7 +14,7 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
 
         internal Month(string path, Year container) : base(path, container)
         {
-            Days = Directory.GetDirectories(container.Path, Day.FilenamePattern)
+            Days = Directory.GetDirectories(Path, Day.FilenamePattern)
                 .Where(filePath => Day.FilenameRegex.IsMatch(SysIoPath.GetFileName(filePath)))
                 .Select(filePath => new Day(filePath, this))
                 .ToArray();
