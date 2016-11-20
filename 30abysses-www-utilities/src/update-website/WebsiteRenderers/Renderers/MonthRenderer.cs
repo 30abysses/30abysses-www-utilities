@@ -5,7 +5,7 @@ namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Renderers
 {
     internal class MonthRenderer : OrganizationalContainerRenderer
     {
-        public MonthRenderer(Month input) : base(input) { }
+        internal MonthRenderer(Month input) : base(input) { }
 
         protected override string GetHtmlTitle() => $"{OrganizationInfo[1].ItemInfo.Title} {OrganizationInfo[2].ItemInfo.Title}-{OrganizationInfo[3].ItemInfo.Title} @ {OrganizationInfo[0].ItemInfo.Title}";
     }

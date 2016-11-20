@@ -6,7 +6,7 @@ namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Renderers
 {
     internal class MetaTopicRenderer : AbstractRenderer<MetaTopic>
     {
-        public MetaTopicRenderer(MetaTopic input) : base(input) { }
+        internal MetaTopicRenderer(MetaTopic input) : base(input) { }
 
         protected override string GetHtmlContents() => string.Empty;
         protected override string GetHtmlNavigation() => string.Empty;

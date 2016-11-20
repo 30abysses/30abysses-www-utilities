@@ -12,7 +12,6 @@
         protected abstract string GetHtmlNavigation();
         protected abstract string GetHtmlContents();
 
-        protected const string IndexHtmlFilename = "index.html";
         protected const string HtmlExtensionFilename = ".html";
     }
 }

@@ -6,7 +6,7 @@ namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Renderers
 {
     internal class TopicRenderer : AbstractRenderer<Topic>
     {
-        public TopicRenderer(Topic input) : base(input) { }
+        internal TopicRenderer(Topic input) : base(input) { }
 
         protected override string GetHtmlContents() => string.Empty;
         protected override string GetHtmlNavigation() => string.Empty;

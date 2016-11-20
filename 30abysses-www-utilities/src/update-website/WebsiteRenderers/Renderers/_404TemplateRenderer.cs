@@ -5,7 +5,7 @@ namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Renderers
 {
     internal class _404TemplateRenderer : AbstractRenderer<_404Template>
     {
-        public _404TemplateRenderer(_404Template input) : base(input) { }
+        internal _404TemplateRenderer(_404Template input) : base(input) { }
 
         protected override string GetHtmlContents() => string.Empty;
         protected override string GetHtmlNavigation() => string.Empty;

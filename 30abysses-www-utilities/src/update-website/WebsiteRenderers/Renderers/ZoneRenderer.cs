@@ -5,7 +5,7 @@ namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Renderers
 {
     internal class ZoneRenderer : OrganizationalContainerRenderer
     {
-        public ZoneRenderer(Zone input) : base(input) { }
+        internal ZoneRenderer(Zone input) : base(input) { }
 
         protected override string GetHtmlTitle() => $"{OrganizationInfo[1].ItemInfo.Title} @ {OrganizationInfo[0].ItemInfo.Title}";
     }
