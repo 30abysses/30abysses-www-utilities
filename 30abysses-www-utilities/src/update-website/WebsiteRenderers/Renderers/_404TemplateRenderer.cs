@@ -4,7 +4,7 @@ using System;
 
 namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Renderers
 {
-    public class _404TemplateRenderer : AbstractRenderer<_404Template>
+    internal class _404TemplateRenderer : AbstractRenderer<_404Template>
     {
         public _404TemplateRenderer(_404Template input) : base(input) { }
 
@@ -23,11 +23,11 @@ namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Renderers
             throw new NotImplementedException();
         }
 
-        public override string GetOutputFileContents()
+        internal override string GetOutputFileContents()
         {
             throw new NotImplementedException();
         }
 
-        public override string GetPseudoInputFilePath() => Input.Path;
+        internal override string GetPseudoInputFilePath() => Input.Path;
     }
 }

@@ -1,19 +1,18 @@
 ﻿namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Abstracts
 {
-    public abstract class AbstractRenderer<T>
+    internal abstract class AbstractRenderer<T>
     {
-        public T Input { get; }
+        protected T Input { get; }
 
-        public AbstractRenderer(T input) { Input = input; }
+        protected AbstractRenderer(T input) { Input = input; }
 
-        public abstract string GetPseudoInputFilePath();
-        public abstract string GetOutputFileContents();
+        internal abstract string GetPseudoInputFilePath();
+        internal abstract string GetOutputFileContents();
         protected abstract string GetHtmlTitle();
         protected abstract string GetHtmlNavigation();
         protected abstract string GetHtmlContents();
 
-        public const string HtmlTitleSuffix = " @ 30abysses (卅淵)";
-        public const string IndexHtmlFilename = "index.html";
-        public const string HtmlExtensionFilename = ".html";
+        protected const string IndexHtmlFilename = "index.html";
+        protected const string HtmlExtensionFilename = ".html";
     }
 }

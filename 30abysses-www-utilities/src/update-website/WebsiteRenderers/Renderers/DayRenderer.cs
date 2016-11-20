@@ -5,7 +5,7 @@ using System.IO;
 
 namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Renderers
 {
-    public class DayRenderer : AbstractRenderer<Day>
+    internal class DayRenderer : AbstractRenderer<Day>
     {
         public DayRenderer(Day input) : base(input) { }
 
@@ -24,11 +24,11 @@ namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Renderers
             throw new NotImplementedException();
         }
 
-        public override string GetOutputFileContents()
+        internal override string GetOutputFileContents()
         {
             throw new NotImplementedException();
         }
 
-        public override string GetPseudoInputFilePath() => Path.Combine(Input.Path, IndexHtmlFilename);
+        internal override string GetPseudoInputFilePath() => Path.Combine(Input.Path, IndexHtmlFilename);
     }
 }

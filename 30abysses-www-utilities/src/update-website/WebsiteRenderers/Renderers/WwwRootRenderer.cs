@@ -5,7 +5,7 @@ using System.IO;
 
 namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Renderers
 {
-    public class WwwRootRenderer : AbstractRenderer<WwwRoot>
+    internal class WwwRootRenderer : AbstractRenderer<WwwRoot>
     {
         public WwwRootRenderer(WwwRoot input) : base(input) { }
 
@@ -21,11 +21,11 @@ namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Renderers
 
         protected override string GetHtmlTitle() => "30abysses (卅淵)";
 
-        public override string GetOutputFileContents()
+        internal override string GetOutputFileContents()
         {
             throw new NotImplementedException();
         }
 
-        public override string GetPseudoInputFilePath() => Path.Combine(Input.Path, IndexHtmlFilename);
+        internal override string GetPseudoInputFilePath() => Path.Combine(Input.Path, IndexHtmlFilename);
     }
 }
