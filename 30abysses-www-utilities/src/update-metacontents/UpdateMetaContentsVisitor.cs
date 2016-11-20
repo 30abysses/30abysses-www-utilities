@@ -4,6 +4,7 @@ using _30abysses.WWW.Utilities.Common.MetaContents.Metadata;
 using _30abysses.WWW.Utilities.Common.RawContents.Abstracts;
 using _30abysses.WWW.Utilities.Common.RawContents.Contents;
 using _30abysses.WWW.Utilities.Common.RawContents.Metadata;
+using _30abysses.WWW.Utilities.UpdateMetaContents.Extensions;
 
 namespace _30abysses.WWW.Utilities.UpdateMetaContents
 {
@@ -23,7 +24,7 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
 
         public override void Visit(WwwRoot wwwRoot)
         {
-            wwwRootAssetContainerInfoCache = new WwwRootAssetContainerInfoCache(wwwRoot.AssetContainer);
+            wwwRoot.InitializeWwwRootAssetContainerInfoExtensions();
             itemInfoCache.Add(wwwRoot);
             Visit(wwwRoot);
         }
@@ -126,29 +127,31 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
         private void Leave(OrganizationalContainer organizationalContainer)
         {
             contentIO.CreateOutputFile(IndexInfo.GetPseudoInputFilePath(organizationalContainer.Path), indexInfoCache[organizationalContainer].GetOutputFileContents());
+            contentIO.CreateOutputFile(organizationalContainer.Path + WwwRootAssetContainerInfo.FilenameExtension, organizationalContainer.GetWwwRootAssetContainerInfo().GetOutputFileContents());
             Leave(organizationalContainer, organizationalContainer.GetContentMetadata());
         }
 
-        private void Leave(Item item) => Leave(item, item.GetContentMetadata());
+        private void Leave(Item item)
+        {
+            contentIO.CreateOutputFile(item.Path + WwwRootAssetContainerInfo.FilenameExtension, item.GetWwwRootAssetContainerInfo().GetOutputFileContents());
+            Leave(item, item.GetContentMetadata());
+        }
 
         private void Leave(Item item, ContentMetadata itemContentMetadata)
         {
             contentIO.CreateOutputFile(ContentMetadataInfo.GetPseudoInputFilePath(item.Path), contentMetadataInfoCache[itemContentMetadata].GetOutputFileContents());
-            contentIO.CreateOutputFile(WwwRootAssetContainerInfo.GetPseudoInputFilePath(item.Path), wwwRootAssetContainerInfoCache[item].GetOutputFileContents());
             contentIO.CreateOutputFile(OrganizationInfo.GetPseudoInputFilePath(item.Path), organizationInfoCache[item].GetOutputFileContents());
         }
 
         private void Visit(OrganizationalContainer organizationalContainer)
         {
             contentIO.CreateOutputDirectory(organizationalContainer.Path);
-            wwwRootAssetContainerInfoCache.Add(organizationalContainer);
             Visit(organizationalContainer, organizationalContainer.GetContentMetadata());
         }
 
         private void Visit(Item item)
         {
             contentIO.CopyFileToOutputDirectory(item.Path);
-            wwwRootAssetContainerInfoCache.Add(item);
             Visit(item, item.GetContentMetadata());
         }
 
@@ -166,7 +169,6 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
 
         private readonly ContentIO contentIO;
         private readonly ContentMetadataInfoCache contentMetadataInfoCache;
-        private WwwRootAssetContainerInfoCache wwwRootAssetContainerInfoCache;
         private readonly ItemInfoCache itemInfoCache;
         private readonly AbstractTopicInfoCache abstractTopicInfoCache;
         private readonly OrganizationInfoCache organizationInfoCache;

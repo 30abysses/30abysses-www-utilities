@@ -13,6 +13,6 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Metadata
             visitor.Leave(this);
         }
 
-        internal const string Filename = ".assets";
+        public const string Filename = ".assets";
     }
 }
