@@ -78,9 +78,17 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
             Visit(metaTopic);
         }
 
-        public override void Leave(MetaTopic metaTopic) => Leave(metaTopic);
+        public override void Leave(MetaTopic metaTopic)
+        {
+            contentIO.CreateOutputFile(metaTopic.Path + OrganizationInfo.FilenameExtension, metaTopic.GetOrganizationInfo().GetOutputFileContents());
+            Leave(metaTopic);
+        }
 
-        public override void Leave(Topic topic) => Leave(topic);
+        public override void Leave(Topic topic)
+        {
+            contentIO.CreateOutputFile(topic.Path + OrganizationInfo.FilenameExtension, topic.GetOrganizationInfo().GetOutputFileContents());
+            Leave(topic);
+        }
 
         public override void Leave(Day day)
         {
@@ -135,7 +143,6 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
         private void Leave(Item item)
         {
             contentIO.CreateOutputFile(item.Path + WwwRootAssetContainerInfo.FilenameExtension, item.GetWwwRootAssetContainerInfo().GetOutputFileContents());
-            contentIO.CreateOutputFile(item.Path + OrganizationInfo.FilenameExtension, item.GetOrganizationInfo().GetOutputFileContents());
             Leave(item, ((OrganizationalContainer) item.Container).ContentMetadata);
         }
 

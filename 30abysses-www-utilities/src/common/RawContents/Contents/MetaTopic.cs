@@ -5,7 +5,9 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
 {
     public class MetaTopic : AbstractTopic, IVisitable
     {
-        internal MetaTopic(string path, Container container, Topic topic) : base(path, container) { this.topic = topic; }
+        public Topic Topic { get; }
+
+        internal MetaTopic(string path, Container container, Topic topic) : base(path, container) { this.Topic = topic; }
 
         void IVisitable.Accept(ContentVisitor visitor)
         {
@@ -15,7 +17,5 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
         }
 
         internal const string FilenameExtension = ".meta.md";
-
-        private readonly Topic topic;
     }
 }

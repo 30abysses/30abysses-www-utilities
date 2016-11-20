@@ -2,6 +2,7 @@
 using _30abysses.WWW.Utilities.Common.RawContents.Abstracts;
 using _30abysses.WWW.Utilities.Common.RawContents.Contents;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace _30abysses.WWW.Utilities.UpdateMetaContents.Extensions
@@ -21,15 +22,34 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents.Extensions
             return organizationInfo;
         }
 
-        internal static OrganizationInfo GetOrganizationInfo(this Item item)
+        internal static OrganizationInfo GetOrganizationInfo(this Topic topic)
         {
-            if (cache.ContainsKey(item)) { return cache[item]; }
+            if (cache.ContainsKey(topic)) { return cache[topic]; }
+            var organizationInfo = ((AbstractTopic) topic).GetOrganizationInfo();
+            organizationInfo.Add(new OrganizationInfo.Node(topic.GetItemInfo(), string.Empty));
+            var metaTopic = topic.MetaTopic;
+            if (metaTopic != null) { organizationInfo.Add(new OrganizationInfo.Node(metaTopic.GetItemInfo(), Path.GetFileName(metaTopic.Path))); }
+            cache.Add(topic, organizationInfo);
+            return organizationInfo;
+        }
+
+        internal static OrganizationInfo GetOrganizationInfo(this MetaTopic metaTopic)
+        {
+            if (cache.ContainsKey(metaTopic)) { return cache[metaTopic]; }
+            var organizationInfo = ((AbstractTopic) metaTopic).GetOrganizationInfo();
+            var topic = metaTopic.Topic;
+            organizationInfo.Add(new OrganizationInfo.Node(topic.GetItemInfo(), Path.GetFileName(topic.Path)));
+            organizationInfo.Add(new OrganizationInfo.Node(metaTopic.GetItemInfo(), string.Empty));
+            cache.Add(metaTopic, organizationInfo);
+            return organizationInfo;
+        }
+
+        private static OrganizationInfo GetOrganizationInfo(this AbstractTopic abstractTopic)
+        {
             var organizationInfo = new OrganizationInfo();
-            var containerOrganizationInfo = item.Container.GetOrganizationInfo();
+            var containerOrganizationInfo = abstractTopic.Container.GetOrganizationInfo();
             organizationInfo.AddRange(containerOrganizationInfo.Select(node => new OrganizationInfo.Node(node.ItemInfo, node.RelativePath)));
             organizationInfo.Last().RelativePath = "./";
-            organizationInfo.Add(new OrganizationInfo.Node(item.GetItemInfo(), string.Empty));
-            cache.Add(item, organizationInfo);
             return organizationInfo;
         }
 
