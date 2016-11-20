@@ -7,7 +7,7 @@ using System.IO;
 
 namespace _30abysses.WWW.Utilities.UpdateMetaContents.Extensions
 {
-    public static class WwwRootAssetContainerInfoExtensions
+    internal static class WwwRootAssetContainerInfoExtensions
     {
         private static readonly IDictionary<Container, WwwRootAssetContainerInfo> cache = new Dictionary<Container, WwwRootAssetContainerInfo>();
 
