@@ -5,16 +5,10 @@ using System.IO;
 
 namespace _30abysses.WWW.Utilities.UpdateWebsite
 {
-    public static class Program
+    internal static class Program
     {
-        public static int Main(string[] commandLineArguments)
+        private static int Main(string[] commandLineArguments)
         {
-            commandLineArguments = new[]
-            {
-                @"G:\twy\Code\GitHub\twy30\my-30abysses-www-metacontents\MetaContentsRoot",
-                @"G:\twy\Code\GitHub\30abysses\30abysses.github.io",
-            };
-
             string inputDirectoryPath;
             string outputDirectoryPath;
             try
