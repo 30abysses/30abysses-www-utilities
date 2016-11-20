@@ -1,34 +1,14 @@
 ﻿using _30abysses.WWW.Utilities.Common.RawContents.Contents;
 using _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Abstracts;
-using System;
-using System.IO;
 
 namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Renderers
 {
-    internal class DayRenderer : AbstractRenderer<Day>
+    internal class DayRenderer : OrganizationalContainerRenderer
     {
         public DayRenderer(Day input) : base(input) { }
 
-        protected override string GetHtmlContents()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override string GetHtmlNavigation()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override string GetHtmlTitle()
-        {
-            throw new NotImplementedException();
-        }
-
-        internal override string GetOutputFileContents()
-        {
-            throw new NotImplementedException();
-        }
-
-        internal override string GetPseudoInputFilePath() => Path.Combine(Input.Path, IndexHtmlFilename);
+        protected override string GetHtmlContents() => "C-c-c-contents";
+        protected override string GetHtmlNavigation() => "N-n-n-navigation";
+        protected override string GetHtmlTitle() => "T-t-t-title";
     }
 }

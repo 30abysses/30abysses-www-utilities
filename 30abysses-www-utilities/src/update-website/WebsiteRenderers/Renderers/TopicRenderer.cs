@@ -1,6 +1,5 @@
 ﻿using _30abysses.WWW.Utilities.Common.RawContents.Contents;
 using _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Abstracts;
-using System;
 using System.IO;
 
 namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Renderers
@@ -9,25 +8,10 @@ namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Renderers
     {
         public TopicRenderer(Topic input) : base(input) { }
 
-        protected override string GetHtmlContents()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override string GetHtmlNavigation()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override string GetHtmlTitle()
-        {
-            throw new NotImplementedException();
-        }
-
-        internal override string GetOutputFileContents()
-        {
-            throw new NotImplementedException();
-        }
+        protected override string GetHtmlContents() => string.Empty;
+        protected override string GetHtmlNavigation() => string.Empty;
+        protected override string GetHtmlTitle() => string.Empty;
+        internal override string GetOutputFileContents() => string.Empty;
 
         internal override string GetPseudoInputFilePath() => Path.ChangeExtension(Input.Path, HtmlExtensionFilename);
     }
