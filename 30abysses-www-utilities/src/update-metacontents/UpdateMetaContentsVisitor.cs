@@ -1,6 +1,5 @@
 ﻿using _30abysses.WWW.Utilities.Common;
 using _30abysses.WWW.Utilities.Common.MetaContents.Contents;
-using _30abysses.WWW.Utilities.Common.MetaContents.Metadata;
 using _30abysses.WWW.Utilities.Common.RawContents.Abstracts;
 using _30abysses.WWW.Utilities.Common.RawContents.Contents;
 using _30abysses.WWW.Utilities.Common.RawContents.Metadata;
@@ -13,7 +12,6 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
         public UpdateMetaContentsVisitor(string rootInputDirectoryPath, string rootOutputDirectoryPath)
         {
             contentIO = new ContentIO(rootInputDirectoryPath, rootOutputDirectoryPath);
-            contentMetadataInfoCache = new ContentMetadataInfoCache();
             itemInfoCache = new ItemInfoCache();
             abstractTopicInfoCache = new AbstractTopicInfoCache();
             organizationInfoCache = new OrganizationInfoCache();
@@ -25,6 +23,7 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
         public override void Visit(WwwRoot wwwRoot)
         {
             wwwRoot.InitializeWwwRootAssetContainerInfoExtensions();
+            wwwRoot.InitializeContentMetadataInfoExtensions();
             itemInfoCache.Add(wwwRoot);
             Visit(wwwRoot);
         }
@@ -139,7 +138,7 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
 
         private void Leave(Item item, ContentMetadata itemContentMetadata)
         {
-            contentIO.CreateOutputFile(ContentMetadataInfo.GetPseudoInputFilePath(item.Path), contentMetadataInfoCache[itemContentMetadata].GetOutputFileContents());
+            contentIO.CreateOutputFile(item.Path + ContentMetadataInfo.FilenameExtension, itemContentMetadata.GetContentMetadataInfo().GetOutputFileContents());
             contentIO.CreateOutputFile(OrganizationInfo.GetPseudoInputFilePath(item.Path), organizationInfoCache[item].GetOutputFileContents());
         }
 
@@ -157,7 +156,6 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
 
         private void Visit(Item item, ContentMetadata itemContentMetadata)
         {
-            contentMetadataInfoCache.Add(itemContentMetadata);
             organizationInfoCache.Add(item, itemInfoCache[item]);
         }
 
@@ -168,7 +166,6 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
         }
 
         private readonly ContentIO contentIO;
-        private readonly ContentMetadataInfoCache contentMetadataInfoCache;
         private readonly ItemInfoCache itemInfoCache;
         private readonly AbstractTopicInfoCache abstractTopicInfoCache;
         private readonly OrganizationInfoCache organizationInfoCache;
