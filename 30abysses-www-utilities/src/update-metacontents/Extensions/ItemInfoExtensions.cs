@@ -24,10 +24,7 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents.Extensions
             cache.Add(topic, new ItemInfo(abstractTopicInfo.Title, abstractTopicInfo.Title));
         }
 
-        internal static void InitializeItemInfoExtensions(this MetaTopic metaTopic)
-        {
-            cache.Add(metaTopic, new ItemInfo(".meta", metaTopic.GetAbstractTopicInfo().Title));
-        }
+        internal static void InitializeItemInfoExtensions(this MetaTopic metaTopic) => cache.Add(metaTopic, new ItemInfo(".meta", metaTopic.GetAbstractTopicInfo().Title));
 
         internal static ItemInfo GetItemInfo(this Item item) => cache[item];
 
