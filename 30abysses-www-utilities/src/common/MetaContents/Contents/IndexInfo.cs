@@ -1,21 +1,37 @@
-﻿using _30abysses.WWW.Utilities.Common.RawContents.Contents;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace _30abysses.WWW.Utilities.Common.MetaContents.Contents
 {
-    public class IndexInfo : List<IndexInfoNode>
+    public class IndexInfo : List<IndexInfo.Node>
     {
-        public static IndexInfo New(IEnumerable<Topic> topics)
+        public class Node
         {
-            var indexInfo = new IndexInfo();
-            indexInfo.AddRange(topics.Select(topic => IndexInfoNode.New(topic)));
-            return indexInfo;
+            public Node() { }
+
+            public Node(AbstractTopicInfo topicInfo, OrganizationInfo topicOrganizationInfo, AbstractTopicInfo metaTopicInfo, OrganizationInfo metaTopicOrganizationInfo)
+            {
+                TopicInfo = topicInfo;
+                TopicOrganizationInfo = topicOrganizationInfo;
+                MetaTopicInfo = metaTopicInfo;
+                MetaTopicOrganizationInfo = metaTopicOrganizationInfo;
+            }
+
+            public AbstractTopicInfo TopicInfo;
+            public OrganizationInfo TopicOrganizationInfo;
+            public AbstractTopicInfo MetaTopicInfo;
+            public OrganizationInfo MetaTopicOrganizationInfo;
         }
 
-        public static string GetPseudoInputFilePath(string path) => path + ".index-info.json";
+        public IndexInfo() { }
+
+        public IndexInfo(IEnumerable<Node> nodes) : base(nodes) { }
+
+        public IndexInfo(IEnumerable<IndexInfo> indexInfos) : base(indexInfos.SelectMany(indexInfo => indexInfo)) { }
 
         public string GetOutputFileContents() => JsonConvert.SerializeObject(this, Formatting.Indented);
+
+        public const string FilenameExtension = ".index-info.json";
     }
 }

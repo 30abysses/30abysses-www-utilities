@@ -7,6 +7,8 @@ namespace _30abysses.WWW.Utilities.Common.MetaContents.Contents
     {
         public class Node
         {
+            public Node() { }
+
             public Node(ItemInfo itemInfo, string relativePath)
             {
                 ItemInfo = itemInfo;

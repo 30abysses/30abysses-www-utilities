@@ -10,34 +10,29 @@ namespace _30abysses.WWW.Utilities.Common.MetaContents.Contents
 {
     public class AbstractTopicInfo
     {
-        public string Title { get; set; }
-        public Uri AuthorUri { get; set; }
-        public string AuthorName { get; set; }
-        public string AuthorEmail { get; set; }
-        public string Contents { get; set; }
-
         public AbstractTopicInfo() { }
 
         public AbstractTopicInfo(AbstractTopic abstractTopic)
         {
+            var firstFourLines = File.ReadLines(abstractTopic.Path, Encoding.UTF8).Take(4).ToArray();
+
+            AuthorUri = new Uri(UrlHeaderRegex.Match(firstFourLines[0]).Groups[1].ToString());
+
             {
-                var firstFourLines = File.ReadLines(abstractTopic.Path, Encoding.UTF8).Take(4).ToArray();
-
-                AuthorUri = new Uri(UrlHeaderRegex.Match(firstFourLines[0]).Groups[1].ToString());
-
-                {
-                    var authorInfoMatch = AuthorHeaderRegex.Match(firstFourLines[1]);
-                    AuthorName = authorInfoMatch.Groups[1].ToString();
-                    AuthorEmail = authorInfoMatch.Groups[2].ToString();
-                }
-
-                Title = TitleHeaderRegex.Match(firstFourLines[3]).Groups[1].ToString();
+                var authorInfoMatch = AuthorHeaderRegex.Match(firstFourLines[1]);
+                AuthorName = authorInfoMatch.Groups[1].ToString();
+                AuthorEmail = authorInfoMatch.Groups[2].ToString();
             }
 
-            Contents = string.Join(Environment.NewLine, File.ReadLines(abstractTopic.Path, Encoding.UTF8).Skip(3));
+            Title = TitleHeaderRegex.Match(firstFourLines[3]).Groups[1].ToString();
         }
 
         public string GetOutputFileContents() => JsonConvert.SerializeObject(this, Formatting.Indented);
+
+        public string Title;
+        public Uri AuthorUri;
+        public string AuthorName;
+        public string AuthorEmail;
 
         public const string FilenameExtension = ".abstract-topic-info.json";
 

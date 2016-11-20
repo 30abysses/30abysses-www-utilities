@@ -12,7 +12,6 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
         internal UpdateMetaContentsVisitor(string rootInputDirectoryPath, string rootOutputDirectoryPath)
         {
             contentIO = new ContentIO(rootInputDirectoryPath, rootOutputDirectoryPath);
-            indexInfoCache = new IndexInfoCache();
         }
 
         public override void Visit(ContentsRoot contentsRoot) => contentIO.CreateOutputDirectory(contentsRoot.Path);
@@ -92,31 +91,31 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
 
         public override void Leave(Day day)
         {
-            indexInfoCache.Add(day);
+            day.InitializeIndexInfoExtensions();
             Leave(day);
         }
 
         public override void Leave(Month month)
         {
-            indexInfoCache.Add(month, month.Days);
+            month.InitializeIndexInfoExtensions();
             Leave(month);
         }
 
         public override void Leave(Year year)
         {
-            indexInfoCache.Add(year, year.Months);
+            year.InitializeIndexInfoExtensions();
             Leave(year);
         }
 
         public override void Leave(Zone zone)
         {
-            indexInfoCache.Add(zone, zone.Years);
+            zone.InitializeIndexInfoExtensions();
             Leave(zone);
         }
 
         public override void Leave(WwwRoot wwwRoot)
         {
-            indexInfoCache.Add(wwwRoot, wwwRoot.Zones);
+            wwwRoot.InitializeIndexInfoExtensions();
             Leave(wwwRoot);
         }
 
@@ -128,7 +127,7 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
 
         private void Leave(OrganizationalContainer organizationalContainer)
         {
-            contentIO.CreateOutputFile(IndexInfo.GetPseudoInputFilePath(organizationalContainer.Path), indexInfoCache[organizationalContainer].GetOutputFileContents());
+            contentIO.CreateOutputFile(organizationalContainer.Path + IndexInfo.FilenameExtension, organizationalContainer.GetIndexInfo().GetOutputFileContents());
             contentIO.CreateOutputFile(organizationalContainer.Path + WwwRootAssetContainerInfo.FilenameExtension, organizationalContainer.GetWwwRootAssetContainerInfo().GetOutputFileContents());
             contentIO.CreateOutputFile(organizationalContainer.Path + OrganizationInfo.FilenameExtension, organizationalContainer.GetOrganizationInfo().GetOutputFileContents());
             Leave(organizationalContainer, organizationalContainer.ContentMetadata);
@@ -149,6 +148,5 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
         private void Leave(Item item, ContentMetadata itemContentMetadata) => contentIO.CreateOutputFile(item.Path + ContentMetadataInfo.FilenameExtension, itemContentMetadata.GetContentMetadataInfo().GetOutputFileContents());
 
         private readonly ContentIO contentIO;
-        private readonly IndexInfoCache indexInfoCache;
     }
 }
