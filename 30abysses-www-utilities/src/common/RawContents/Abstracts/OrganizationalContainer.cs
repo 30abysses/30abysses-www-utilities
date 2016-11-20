@@ -1,6 +1,7 @@
 ﻿using _30abysses.WWW.Utilities.Common.RawContents.Contents;
 using _30abysses.WWW.Utilities.Common.RawContents.Interfaces;
 using _30abysses.WWW.Utilities.Common.RawContents.Metadata;
+using System.IO;
 
 namespace _30abysses.WWW.Utilities.Common.RawContents.Abstracts
 {
@@ -11,16 +12,32 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Abstracts
         public LogoTemplate LogoTemplate { get; private set; }
         public TopicTemplate TopicTemplate { get; private set; }
 
-        public OrganizationalContainer(string path, ContentsRoot container) : base(path, container) { Initialize(null); }
+        protected OrganizationalContainer(string path, ContentsRoot container) : base(path, container) { Initialize(null); }
 
-        public OrganizationalContainer(string path, OrganizationalContainer container) : base(path, container) { Initialize(container); }
+        protected OrganizationalContainer(string path, OrganizationalContainer container) : base(path, container) { Initialize(container); }
 
         private void Initialize(OrganizationalContainer fallbackContainer)
         {
-            ContentMetadata = ContentMetadata.Get(this, fallbackContainer?.ContentMetadata);
-            IndexTemplate = IndexTemplate.Get(this, fallbackContainer?.IndexTemplate);
-            LogoTemplate = LogoTemplate.Get(this, fallbackContainer?.LogoTemplate);
-            TopicTemplate = TopicTemplate.Get(this, fallbackContainer?.TopicTemplate);
+            {
+                var path = Path + ContentMetadata.FilenameExtension;
+                var fallback = fallbackContainer?.ContentMetadata;
+                ContentMetadata = File.Exists(path) ? new ContentMetadata(path, Container, this, fallback) : fallback;
+            }
+
+            {
+                var path = Path + IndexTemplate.FilenameExtension;
+                IndexTemplate = File.Exists(path) ? new IndexTemplate(path, Container, this) : fallbackContainer?.IndexTemplate;
+            }
+
+            {
+                var path = Path + LogoTemplate.FilenameExtension;
+                LogoTemplate = File.Exists(path) ? new LogoTemplate(path, Container, this) : fallbackContainer?.LogoTemplate;
+            }
+
+            {
+                var path = Path + TopicTemplate.FilenameExtension;
+                TopicTemplate = File.Exists(path) ? new TopicTemplate(path, Container, this) : fallbackContainer?.TopicTemplate;
+            }
         }
 
         protected void Accept(ContentVisitor visitor)

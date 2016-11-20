@@ -1,23 +1,20 @@
-﻿using _30abysses.WWW.Utilities.Common.RawContents.Contents;
-using _30abysses.WWW.Utilities.Common.RawContents.Interfaces;
+﻿using _30abysses.WWW.Utilities.Common.RawContents.Interfaces;
 using _30abysses.WWW.Utilities.Common.RawContents.Metadata;
+using System.IO;
+using SysIoPath = System.IO.Path;
 
 namespace _30abysses.WWW.Utilities.Common.RawContents.Abstracts
 {
-    public class AbstractTopic : Item
+    public abstract class AbstractTopic : Item
     {
-        public new Day Container { get; }
-        public AssetContainer AssetContainer { get; }
-
-        public AbstractTopic(string path, Day container) : base(path, container)
+        protected AbstractTopic(string path, Container container) : base(path, container)
         {
-            Container = container;
-            AssetContainer = AssetContainer.Get(this);
+            var itemPath = SysIoPath.Combine(Container.Path, SysIoPath.GetFileNameWithoutExtension(Path));
+            assetContainer = Directory.Exists(path) ? new AssetContainer(path, Container, this) : null;
         }
 
-        protected void Accept(ContentVisitor visitor)
-        {
-            if (AssetContainer?.Owner == this) { ((IVisitable) AssetContainer).Accept(visitor); }
-        }
+        protected void Accept(ContentVisitor visitor) { ((IVisitable) assetContainer)?.Accept(visitor); }
+
+        private readonly AssetContainer assetContainer;
     }
 }

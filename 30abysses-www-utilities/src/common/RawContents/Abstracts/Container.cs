@@ -2,6 +2,6 @@
 {
     public abstract class Container : Item
     {
-        public Container(string path, Container container) : base(path, container) { }
+        protected Container(string path, Container container) : base(path, container) { }
     }
 }

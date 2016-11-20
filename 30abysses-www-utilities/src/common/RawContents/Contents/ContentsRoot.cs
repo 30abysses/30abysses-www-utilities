@@ -1,5 +1,7 @@
 ﻿using _30abysses.WWW.Utilities.Common.RawContents.Abstracts;
 using _30abysses.WWW.Utilities.Common.RawContents.Interfaces;
+using System.IO;
+using SysIoPath = System.IO.Path;
 
 namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
 {
@@ -7,7 +9,11 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Contents
     {
         public WwwRoot WwwRoot { get; }
 
-        public ContentsRoot(string path) : base(path, null) { WwwRoot = WwwRoot.Get(this); }
+        public ContentsRoot(string path) : base(path, null)
+        {
+            var itemPath = SysIoPath.Combine(Path, WwwRoot.Filename);
+            WwwRoot = Directory.Exists(itemPath) ? new WwwRoot(itemPath, this) : null;
+        }
 
         void IVisitable.Accept(ContentVisitor visitor)
         {

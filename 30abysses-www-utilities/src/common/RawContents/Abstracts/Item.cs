@@ -5,7 +5,7 @@
         public string Path { get; }
         public Container Container { get; }
 
-        public Item(string path, Container container)
+        protected Item(string path, Container container)
         {
             Path = path;
             Container = container;
