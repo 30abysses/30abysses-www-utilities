@@ -5,9 +5,9 @@ using System.IO;
 
 namespace _30abysses.WWW.Utilities.UpdateMetaContents
 {
-    public static class Program
+    internal static class Program
     {
-        public static int Main(string[] commandLineArguments)
+        private static int Main(string[] commandLineArguments)
         {
             string inputDirectoryPath;
             string outputDirectoryPath;
