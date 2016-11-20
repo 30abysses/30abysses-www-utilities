@@ -7,8 +7,6 @@ namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Renderers
     {
         public ZoneRenderer(Zone input) : base(input) { }
 
-        protected override string GetHtmlContents() => "C-c-c-contents";
-        protected override string GetHtmlNavigation() => "N-n-n-navigation";
-        protected override string GetHtmlTitle() => "T-t-t-title";
+        protected override string GetHtmlTitle() => $"{OrganizationInfo[1].ItemInfo.Title} @ {OrganizationInfo[0].ItemInfo.Title}";
     }
 }
