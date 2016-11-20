@@ -14,12 +14,9 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents.Extensions
         internal static WwwRootAssetContainerInfo GetWwwRootAssetContainerInfo(this Container container)
         {
             if (cache.ContainsKey(container)) { return cache[container]; }
-            else
-            {
-                var wwwRootAssetContainerInfo = new WwwRootAssetContainerInfo("../" + GetWwwRootAssetContainerInfo(container.Container).RelativePath);
-                cache.Add(container, wwwRootAssetContainerInfo);
-                return wwwRootAssetContainerInfo;
-            }
+            var wwwRootAssetContainerInfo = new WwwRootAssetContainerInfo("../" + GetWwwRootAssetContainerInfo(container.Container).RelativePath);
+            cache.Add(container, wwwRootAssetContainerInfo);
+            return wwwRootAssetContainerInfo;
         }
 
         internal static WwwRootAssetContainerInfo GetWwwRootAssetContainerInfo(this Item item) => GetWwwRootAssetContainerInfo(item.Container);

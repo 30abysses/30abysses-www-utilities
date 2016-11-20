@@ -5,7 +5,7 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Metadata
 {
     public class TopicTemplate : AbstractMetadata<OrganizationalContainer>, IVisitable
     {
-        public TopicTemplate(string path, Container container, OrganizationalContainer owner) : base(path, container, owner) { }
+        internal TopicTemplate(string path, Container container, OrganizationalContainer owner) : base(path, container, owner) { }
 
         void IVisitable.Accept(ContentVisitor visitor)
         {

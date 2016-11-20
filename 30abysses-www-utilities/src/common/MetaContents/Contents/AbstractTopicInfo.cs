@@ -16,34 +16,33 @@ namespace _30abysses.WWW.Utilities.Common.MetaContents.Contents
         public string AuthorEmail { get; set; }
         public string Contents { get; set; }
 
-        public static AbstractTopicInfo New(AbstractTopic abstractTopic)
-        {
-            var abstractTopicInfo = new AbstractTopicInfo();
+        public AbstractTopicInfo() { }
 
+        public AbstractTopicInfo(AbstractTopic abstractTopic)
+        {
             {
                 var firstFourLines = File.ReadLines(abstractTopic.Path, Encoding.UTF8).Take(4).ToArray();
 
-                abstractTopicInfo.AuthorUri = new Uri(UrlHeaderRegex.Match(firstFourLines[0]).Groups[1].ToString());
+                AuthorUri = new Uri(UrlHeaderRegex.Match(firstFourLines[0]).Groups[1].ToString());
 
                 {
                     var authorInfoMatch = AuthorHeaderRegex.Match(firstFourLines[1]);
-                    abstractTopicInfo.AuthorName = authorInfoMatch.Groups[1].ToString();
-                    abstractTopicInfo.AuthorEmail = authorInfoMatch.Groups[2].ToString();
+                    AuthorName = authorInfoMatch.Groups[1].ToString();
+                    AuthorEmail = authorInfoMatch.Groups[2].ToString();
                 }
 
-                abstractTopicInfo.Title = TitleHeaderRegex.Match(firstFourLines[3]).Groups[1].ToString();
+                Title = TitleHeaderRegex.Match(firstFourLines[3]).Groups[1].ToString();
             }
 
-            abstractTopicInfo.Contents = string.Join(Environment.NewLine, File.ReadLines(abstractTopic.Path, Encoding.UTF8).Skip(3));
-            return abstractTopicInfo;
+            Contents = string.Join(Environment.NewLine, File.ReadLines(abstractTopic.Path, Encoding.UTF8).Skip(3));
         }
 
         public string GetOutputFileContents() => JsonConvert.SerializeObject(this, Formatting.Indented);
 
-        public static string GetPseudoInputFilePath(string path) => path + ".abstract-topic-info.json";
+        public const string FilenameExtension = ".abstract-topic-info.json";
 
-        public static readonly Regex UrlHeaderRegex = new Regex(@"^> (.+)$");
-        public static readonly Regex AuthorHeaderRegex = new Regex(@"^> by (.+) <(.+@.+)> \d{4}-\d{2}-\d{2} CC-BY-4\.0$");
-        public static readonly Regex TitleHeaderRegex = new Regex(@"^# (.+)$");
+        private static readonly Regex UrlHeaderRegex = new Regex(@"^> (.+)$");
+        private static readonly Regex AuthorHeaderRegex = new Regex(@"^> by (.+) <(.+@.+)> \d{4}-\d{2}-\d{2} CC-BY-4\.0$");
+        private static readonly Regex TitleHeaderRegex = new Regex(@"^# (.+)$");
     }
 }

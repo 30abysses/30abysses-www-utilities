@@ -5,7 +5,7 @@ namespace _30abysses.WWW.Utilities.Common.RawContents.Metadata
 {
     public class LogoTemplate : AbstractMetadata<OrganizationalContainer>, IVisitable
     {
-        public LogoTemplate(string path, Container container, OrganizationalContainer owner) : base(path, container, owner) { }
+        internal LogoTemplate(string path, Container container, OrganizationalContainer owner) : base(path, container, owner) { }
 
         void IVisitable.Accept(ContentVisitor visitor)
         {

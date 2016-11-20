@@ -16,13 +16,10 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents.Extensions
         internal static ContentMetadataInfo GetContentMetadataInfo(this ContentMetadata contentMetadata)
         {
             if (cache.ContainsKey(contentMetadata)) { return cache[contentMetadata]; }
-            else
-            {
-                var fallbackContentMetadata = contentMetadata.Fallback;
-                var contentMetadataInfo = fallbackContentMetadata == null ? new ContentMetadataInfo(contentMetadata) : new ContentMetadataInfo(GetContentMetadataInfo(contentMetadata.Fallback), contentMetadata);
-                cache.Add(contentMetadata, contentMetadataInfo);
-                return contentMetadataInfo;
-            }
+            var fallbackContentMetadata = contentMetadata.Fallback;
+            var contentMetadataInfo = fallbackContentMetadata == null ? new ContentMetadataInfo(contentMetadata) : new ContentMetadataInfo(GetContentMetadataInfo(fallbackContentMetadata), contentMetadata);
+            cache.Add(contentMetadata, contentMetadataInfo);
+            return contentMetadataInfo;
         }
 
         private static readonly IDictionary<ContentMetadata, ContentMetadataInfo> cache = new Dictionary<ContentMetadata, ContentMetadataInfo>();

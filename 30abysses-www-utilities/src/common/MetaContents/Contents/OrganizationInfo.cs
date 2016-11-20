@@ -1,29 +1,24 @@
-﻿using _30abysses.WWW.Utilities.Common.RawContents.Abstracts;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace _30abysses.WWW.Utilities.Common.MetaContents.Contents
 {
-    public class OrganizationInfo : List<OrganizationInfoNode>
+    public class OrganizationInfo : List<OrganizationInfo.Node>
     {
-        public static OrganizationInfo New(OrganizationInfo organizationInfo, Item item, ItemInfo itemInfo)
+        public class Node
         {
-            var newOrganizationInfo = new OrganizationInfo();
-            newOrganizationInfo.AddRange(organizationInfo.Select(node => new OrganizationInfoNode(node.Name, "../" + node.RelativePath)));
-            newOrganizationInfo.Add(new OrganizationInfoNode(itemInfo.Name, string.Empty));
-            return newOrganizationInfo;
-        }
+            public Node(ItemInfo itemInfo, string relativePath)
+            {
+                ItemInfo = itemInfo;
+                RelativePath = relativePath;
+            }
 
-        public static OrganizationInfo New(Item item, ItemInfo itemInfo)
-        {
-            var organizationInfo = new OrganizationInfo();
-            organizationInfo.Add(new OrganizationInfoNode(itemInfo.Name, string.Empty));
-            return organizationInfo;
+            public ItemInfo ItemInfo;
+            public string RelativePath;
         }
 
         public string GetOutputFileContents() => JsonConvert.SerializeObject(this, Formatting.Indented);
 
-        public static string GetPseudoInputFilePath(string path) => path + ".organization-info.json";
+        public const string FilenameExtension = ".organization-info.json";
     }
 }
