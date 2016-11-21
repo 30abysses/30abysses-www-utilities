@@ -24,8 +24,8 @@ namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Abstracts
             {
                 htmlBuilder.Append("<li>");
                 htmlBuilder.Append($"<code>{HtmlEncoder.Default.Encode(node.TopicOrganizationInfo[1].ItemInfo.Name)} {HtmlEncoder.Default.Encode(node.TopicOrganizationInfo[2].ItemInfo.Name)}-{HtmlEncoder.Default.Encode(node.TopicOrganizationInfo[3].ItemInfo.Name)}-{HtmlEncoder.Default.Encode(node.TopicOrganizationInfo[4].ItemInfo.Name)} </code>");
-                htmlBuilder.Append($"<a href=\"{node.TopicInfo.AuthorUri}\">{HtmlEncoder.Default.Encode(node.TopicOrganizationInfo[5].ItemInfo.Name)}</a>");
-                if (node.MetaTopicInfo != null) { htmlBuilder.Append($"<code> </code><a href=\"{node.MetaTopicInfo.AuthorUri}\">{HtmlEncoder.Default.Encode(node.MetaTopicOrganizationInfo[5].ItemInfo.Name)}</a>"); }
+                htmlBuilder.Append($"<a href=\"{Path.ChangeExtension(node.TopicInfo.AuthorUri.ToString(), HtmlExtensionFilename)}\">{HtmlEncoder.Default.Encode(node.TopicOrganizationInfo[5].ItemInfo.Name)}</a>");
+                if (node.MetaTopicInfo != null) { htmlBuilder.Append($"<code> </code><a href=\"{Path.ChangeExtension(node.MetaTopicInfo.AuthorUri.ToString(), HtmlExtensionFilename)}\">{HtmlEncoder.Default.Encode(node.MetaTopicOrganizationInfo[5].ItemInfo.Name)}</a>"); }
                 htmlBuilder.Append("</li>");
             }
             htmlBuilder.Append("</ul>");
