@@ -14,6 +14,8 @@ namespace _30abysses.WWW.Utilities.Common.MetaContents.Contents
 
         public AbstractTopicInfo(AbstractTopic abstractTopic)
         {
+            Filename = Path.GetFileName(abstractTopic.Path);
+
             var firstFourLines = File.ReadLines(abstractTopic.Path, Encoding.UTF8).Take(4).ToArray();
 
             AuthorUri = new Uri(UrlHeaderRegex.Match(firstFourLines[0]).Groups[1].ToString());
@@ -30,6 +32,7 @@ namespace _30abysses.WWW.Utilities.Common.MetaContents.Contents
         public string GetOutputFileContents() => JsonConvert.SerializeObject(this, Formatting.Indented);
 
         public string Title;
+        public string Filename;
         public Uri AuthorUri;
         public string AuthorName;
         public string AuthorEmail;

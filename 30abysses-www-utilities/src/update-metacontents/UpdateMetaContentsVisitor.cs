@@ -9,10 +9,7 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
 {
     internal class UpdateMetaContentsVisitor : ContentVisitor
     {
-        internal UpdateMetaContentsVisitor(string rootInputDirectoryPath, string rootOutputDirectoryPath)
-        {
-            contentIO = new ContentIO(rootInputDirectoryPath, rootOutputDirectoryPath);
-        }
+        internal UpdateMetaContentsVisitor(string rootInputDirectoryPath, string rootOutputDirectoryPath) { contentIO = new ContentIO(rootInputDirectoryPath, rootOutputDirectoryPath); }
 
         public override void Visit(ContentsRoot contentsRoot) => contentIO.CreateOutputDirectory(contentsRoot.Path);
 
@@ -111,6 +108,12 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
         {
             zone.InitializeIndexInfoExtensions();
             Leave(zone);
+        }
+
+        public override void Leave(_404Template _404Template)
+        {
+            contentIO.CreateOutputFile(_404Template.Path + OrganizationInfo.FilenameExtension, _404Template.GetOrganizationInfo().GetOutputFileContents());
+            Leave(_404Template);
         }
 
         public override void Leave(WwwRoot wwwRoot)
