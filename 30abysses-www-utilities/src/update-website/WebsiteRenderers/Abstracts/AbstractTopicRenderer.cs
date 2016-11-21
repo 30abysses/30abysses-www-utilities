@@ -29,7 +29,7 @@ namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Abstracts
 
             htmlTemplate.Replace(GetWwwContentsId("license.title"), abstractTopicInfo.Title);
             htmlTemplate.Replace(GetWwwContentsId("license.URL"), abstractTopicInfo.AuthorUri.ToString());
-            htmlTemplate.Replace(GetWwwContentsId("license.author"), $"<a href=\"mailto:{abstractTopicInfo.AuthorEmail}\">{HtmlEncoder.Default.Encode($"{abstractTopicInfo.AuthorName} <{abstractTopicInfo.AuthorEmail}>")}</a>");
+            htmlTemplate.Replace(GetWwwContentsId("license.author"), $"<a href=\"{abstractTopicInfo.AuthorUri}\">{HtmlEncoder.Default.Encode($"{abstractTopicInfo.AuthorName} <{abstractTopicInfo.AuthorEmail}>")}</a>");
 
             foreach (var keyValue in ContentMetadataInfo) { htmlTemplate.Replace(GetWwwContentsId(keyValue.Key), keyValue.Value); }
             return htmlTemplate.ToString();
