@@ -110,6 +110,12 @@ namespace _30abysses.WWW.Utilities.UpdateMetaContents
             Leave(zone);
         }
 
+        public override void Leave(_404Template _404Template)
+        {
+            contentIO.CreateOutputFile(_404Template.Path + OrganizationInfo.FilenameExtension, _404Template.GetOrganizationInfo().GetOutputFileContents());
+            Leave(_404Template);
+        }
+
         public override void Leave(WwwRoot wwwRoot)
         {
             wwwRoot.InitializeIndexInfoExtensions();

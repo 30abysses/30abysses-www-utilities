@@ -8,26 +8,19 @@ using System.Text.Encodings.Web;
 
 namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Abstracts
 {
-    internal abstract class OrganizationalContainerRenderer : AbstractRenderer<OrganizationalContainer>
+    internal abstract class OrganizationalContainerRenderer : AbstractRenderer
     {
-        protected ContentMetadataInfo ContentMetadataInfo { get; }
-        protected IndexInfo IndexInfo { get; }
-        protected OrganizationInfo OrganizationInfo { get; }
-        protected WwwRootAssetContainerInfo WwwRootAssetContainerInfo { get; }
-
         public OrganizationalContainerRenderer(OrganizationalContainer input) : base(input)
         {
-            ContentMetadataInfo = JsonConvert.DeserializeObject<ContentMetadataInfo>(File.ReadAllText(Input.Path + ContentMetadataInfo.FilenameExtension, Encoding.UTF8));
-            IndexInfo = JsonConvert.DeserializeObject<IndexInfo>(File.ReadAllText(Input.Path + IndexInfo.FilenameExtension, Encoding.UTF8));
-            OrganizationInfo = JsonConvert.DeserializeObject<OrganizationInfo>(File.ReadAllText(Input.Path + OrganizationInfo.FilenameExtension, Encoding.UTF8));
-            WwwRootAssetContainerInfo = JsonConvert.DeserializeObject<WwwRootAssetContainerInfo>(File.ReadAllText(Input.Path + WwwRootAssetContainerInfo.FilenameExtension, Encoding.UTF8));
+            this.input = input;
+            indexInfo = JsonConvert.DeserializeObject<IndexInfo>(File.ReadAllText(input.Path + IndexInfo.FilenameExtension, Encoding.UTF8));
         }
 
         protected override string GetHtmlContents()
         {
             var htmlBuilder = new StringBuilder();
             htmlBuilder.Append("<ul>");
-            foreach (var node in IndexInfo.OrderByDescending(node => node.TopicOrganizationInfo[2].ItemInfo.Name + node.TopicOrganizationInfo[3].ItemInfo.Name + node.TopicOrganizationInfo[4].ItemInfo.Name))
+            foreach (var node in indexInfo.OrderByDescending(node => node.TopicOrganizationInfo[2].ItemInfo.Name + node.TopicOrganizationInfo[3].ItemInfo.Name + node.TopicOrganizationInfo[4].ItemInfo.Name))
             {
                 htmlBuilder.Append("<li>");
                 htmlBuilder.Append($"<code>{HtmlEncoder.Default.Encode(node.TopicOrganizationInfo[1].ItemInfo.Name)} {HtmlEncoder.Default.Encode(node.TopicOrganizationInfo[2].ItemInfo.Name)}-{HtmlEncoder.Default.Encode(node.TopicOrganizationInfo[3].ItemInfo.Name)}-{HtmlEncoder.Default.Encode(node.TopicOrganizationInfo[4].ItemInfo.Name)} </code>");
@@ -39,30 +32,21 @@ namespace _30abysses.WWW.Utilities.UpdateWebsite.WebsiteRenderers.Abstracts
             return htmlBuilder.ToString();
         }
 
-        protected override string GetHtmlNavigation()
-        {
-            var htmlBuilder = new StringBuilder();
-            htmlBuilder.Append("<code>");
-            foreach (var node in OrganizationInfo.Take(OrganizationInfo.Count - 1)) { htmlBuilder.Append($"<a href=\"{node.RelativePath}index.html\">{HtmlEncoder.Default.Encode(node.ItemInfo.Name)}</a> / "); }
-            htmlBuilder.Append(HtmlEncoder.Default.Encode(OrganizationInfo.Last().ItemInfo.Name));
-            htmlBuilder.Append("</code>");
-            return htmlBuilder.ToString();
-        }
-
         internal override string GetOutputFileContents()
         {
-            var htmlTemplate = new StringBuilder(File.ReadAllText(Input.IndexTemplate.Path, Encoding.UTF8));
-            htmlTemplate.Replace(GetWwwTag("wwwroot.assets"), WwwRootAssetContainerInfo.RelativePath);
-            htmlTemplate.Replace(GetWwwTag("logo"), File.ReadAllText(Input.LogoTemplate.Path, Encoding.UTF8));
-            htmlTemplate.Replace(GetWwwTag("navigation"), GetHtmlNavigation());
-            htmlTemplate.Replace(GetWwwTag("title"), HtmlEncoder.Default.Encode(GetHtmlTitle()));
-            htmlTemplate.Replace(GetWwwTag("contents"), GetHtmlContents());
-            foreach (var keyValue in ContentMetadataInfo) { htmlTemplate.Replace(GetWwwTag(keyValue.Key), keyValue.Value); }
+            var htmlTemplate = new StringBuilder(File.ReadAllText(input.IndexTemplate.Path, Encoding.UTF8));
+            htmlTemplate.Replace(WwwContents_WwwRootAssets, WwwRootAssetContainerInfo.RelativePath);
+            htmlTemplate.Replace(WwwContents_Logo, File.ReadAllText(input.LogoTemplate.Path, Encoding.UTF8));
+            htmlTemplate.Replace(WwwContents_Navigation, GetHtmlNavigation());
+            htmlTemplate.Replace(WwwContents_Title, HtmlEncoder.Default.Encode(GetHtmlTitle()));
+            htmlTemplate.Replace(WwwContents_Contents, GetHtmlContents());
+            foreach (var keyValue in ContentMetadataInfo) { htmlTemplate.Replace(GetWwwContentsId(keyValue.Key), keyValue.Value); }
             return htmlTemplate.ToString();
         }
 
-        private static string GetWwwTag(string key) => "{[www-contents]." + key + "}";
+        internal override string GetPseudoInputFilePath() => Path.Combine(input.Path, "index.html");
 
-        internal override string GetPseudoInputFilePath() => Path.Combine(Input.Path, "index.html");
+        private readonly IndexInfo indexInfo;
+        private readonly OrganizationalContainer input;
     }
 }

@@ -7,6 +7,7 @@
 
   "dependencies": {
     "common": "1.0.0-*",
+    "Markdig": "0.10.1",
     "Microsoft.NETCore.App": {
       "type": "platform",
       "version": "1.0.1"
